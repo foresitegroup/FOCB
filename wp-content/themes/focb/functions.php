@@ -1,6 +1,6 @@
 <?php
 // We want Featured Images on Pages and Posts
-add_theme_support( 'post-thumbnails' );
+add_theme_support('post-thumbnails');
 
 
 // Don't resize Featured Images
@@ -127,5 +127,90 @@ function disable_visual_editor($can) {
   ) return false;
 
   return $can;
+}
+
+
+/////////
+// Add second text box to "About the Friends" edit page
+/////////
+add_action('add_meta_boxes', 'about_the_friends_metabox');
+function about_the_friends_metabox() {
+  global $post;
+
+  if ($post->post_name == 'about-the-friends') {
+    add_meta_box('what_we_do_mb', 'What We Do', 'what_we_do_mb_content', 'page', 'normal');
+  }
+}
+
+function what_we_do_mb_content($post) {
+  wp_editor(html_entity_decode($post->what_we_do, ENT_QUOTES), 'what_we_do', array('textarea_rows' => 25));
+}
+
+add_action('save_post', 'what_we_do_save');
+function what_we_do_save($post_id) {
+  if (!empty($_POST['what_we_do'])) {
+    update_post_meta($post_id, 'what_we_do', $_POST['what_we_do']);
+  } else {
+    delete_post_meta($post_id, 'what_we_do');
+  }
+}
+
+
+/////////
+// Add text boxes to "Meet the Friends" edit page
+/////////
+add_action('edit_form_after_title', 'meet_the_friends_metabox');
+function meet_the_friends_metabox() {
+  global $post;
+
+  if ($post->post_name == 'meet-the-friends') {
+    // add_meta_box('meet_the_friends_mb', 'Board of Directors', 'meet_the_friends_mb_content', 'page', 'normal');
+    echo '<style>#wp-content-wrap { z-index: 1; }</style>';
+
+    echo '<h3 style="margin: 1.5em 0 0.2em;">Officers</h3>';
+    wp_editor(html_entity_decode($post->mtf_officers, ENT_QUOTES), 'mtf_officers', array('textarea_rows' => 20, 'wpautop' => true, 'tinymce' => true));
+
+    echo '<h3 style="margin: 1.5em 0 0.2em;">Directors</h3>';
+    wp_editor(html_entity_decode($post->mtf_directors, ENT_QUOTES), 'mtf_directors', array('textarea_rows' => 20));
+
+    echo '<h3 style="margin: 1.5em 0 0.2em;">Advisors</h3>';
+    wp_editor(html_entity_decode($post->mtf_advisors, ENT_QUOTES), 'mtf_advisors', array('textarea_rows' => 20));
+
+    echo '<h3 style="margin: 1.5em 0 0.2em;">Honorary Directors</h3>';
+    wp_editor(html_entity_decode($post->mtf_honorary_directors, ENT_QUOTES), 'mtf_honorary_directors', array('textarea_rows' => 20));
+
+    echo '<h3 style="margin: 1.5em 0 0.2em; position: relative; top: 20px; z-index: 2;">Our Friends</h3>';
+  }
+}
+
+// function meet_the_friends_mb_content($post) {
+//   wp_editor(html_entity_decode($post->mtf_officers, ENT_QUOTES), 'mtf_officers', array('textarea_rows' => 25));
+// }
+
+add_action('save_post', 'meet_the_friends_save');
+function meet_the_friends_save($post_id) {
+  if (!empty($_POST['mtf_officers'])) {
+    update_post_meta($post_id, 'mtf_officers', $_POST['mtf_officers']);
+  } else {
+    delete_post_meta($post_id, 'mtf_officers');
+  }
+
+  if (!empty($_POST['mtf_directors'])) {
+    update_post_meta($post_id, 'mtf_directors', $_POST['mtf_directors']);
+  } else {
+    delete_post_meta($post_id, 'mtf_directors');
+  }
+
+  if (!empty($_POST['mtf_advisors'])) {
+    update_post_meta($post_id, 'mtf_advisors', $_POST['mtf_advisors']);
+  } else {
+    delete_post_meta($post_id, 'mtf_advisors');
+  }
+
+  if (!empty($_POST['mtf_honorary_directors'])) {
+    update_post_meta($post_id, 'mtf_honorary_directors', $_POST['mtf_honorary_directors']);
+  } else {
+    delete_post_meta($post_id, 'mtf_honorary_directors');
+  }
 }
 ?>
