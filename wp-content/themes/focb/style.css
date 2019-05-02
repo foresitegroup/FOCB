@@ -756,7 +756,45 @@ A.button:hover, A.button:active {
 #our-friends {
   background: #FFFFFF;
   color: #0C0E0E;
+  text-align: center;
 }
+
+#our-friends H2 {
+  display: inline-block;
+  margin: 0;
+  border-radius: 0 0 12px 12px;
+  padding: 23px 1.2em 29px 1.3em;
+  background: #2A3130;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#our-friends .site-width { padding: 32px 0 108px; }
+
+#our-friends A {
+  display: inline-block;
+  margin: 17px 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+#our-friends .row1 A {
+  width: 140px;
+  height: 115px;
+}
+
+#our-friends .row2 A {
+  width: 130px;
+  height: 185px;
+}
+
+
 
 
 

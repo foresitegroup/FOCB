@@ -84,8 +84,10 @@ get_header();
     </div> <!-- #sub-tabs -->
 
     <div id="our-friends">
+      <h2>Our Friends</h2>
+
       <div class="site-width">
-        <?php echo $meet[0]->post_content; ?>
+        <?php echo $meet[0]->mtf_friends; ?>
       </div>
     </div>
   </div> <!-- #content-meet -->
