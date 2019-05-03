@@ -794,6 +794,149 @@ A.button:hover, A.button:active {
   height: 185px;
 }
 
+#events-calendar {
+  background: linear-gradient(to right, #2A3130 50%, #696E6E 50%);
+  position: relative;
+}
+
+#events-calendar:before {
+  content: "";
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  height: 3px;
+  width: 50%;
+  z-index: 1;
+  background: #F7B747;
+}
+
+#events-calendar .site-width { display: flex; }
+
+#events {
+  width: 352px;
+  background: #2A3130;
+  color: #FFFFFF;
+}
+
+#events H2 {
+  margin: 1em 0;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 0.85em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: underline;
+}
+
+#event-list {
+  height: 650px;
+  overflow: auto;
+  margin-right: 16px;
+  color: #C8C8C8;
+  font-family: 'Rokkitt', serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.2em;
+}
+
+#event-list::-webkit-scrollbar { width: 6px; }
+#event-list::-webkit-scrollbar-track { background: #696E6E; border-radius: 6px; }
+#event-list::-webkit-scrollbar-thumb { background: #F7B747; border-radius: 6px; }
+
+#event-list H3 {
+  margin: 0.25em 0 0;
+  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 133.33%;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+#event-list H4, #event-list H5 {
+  margin: 0;
+  color: #F7B747;
+  font-weight: 700;
+  font-size: 133.33%;
+  line-height: 1em;
+}
+
+#event-list H5 { margin: 0.25em 0 0; font-weight: 400; }
+
+#event-list H6 {
+  margin: 0.25em 0 0;
+  font-weight: 400;
+  font-size: 100%;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+#event-list HR {
+  margin: 2em 16px 2em 0;
+  border: none;
+  background: #696E6E;
+  height: 2px;
+}
+
+#calendar {
+  box-sizing: border-box;
+  padding-top: 120px;
+  /*min-height: 742px;*/
+  width: calc(100% - 352px);
+  background: #696E6E;
+  position: relative;
+  z-index: 2;
+}
+
+#calendar:before {
+  content: "";
+  position: absolute;
+  top: 56px;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  z-index: 1;
+  background: #F7B747;
+}
+
+#calendar H2 {
+  margin: 0;
+  padding: 0 0.4em;
+  position: absolute;
+  z-index: 2;
+  top: 56px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #696E6E;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+}
+
+#calendar H2:after {
+  content: attr(data-year);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #FFFFFF;
+  font-family: 'Rokkitt', serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1em;
+}
+
+#cal-grid {
+  outline: 1px solid red;
+}
+
+
+
 
 
 

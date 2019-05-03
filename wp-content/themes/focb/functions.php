@@ -243,7 +243,9 @@ function events() {
       'show_ui' => true,
       'menu_position' => 5,
       'menu_icon' => 'dashicons-calendar-alt',
-      'supports' => array('title', 'editor')
+      'supports' => array('title', 'editor'),
+      'has_archive' => true,
+      'publicly_queryable' => true
     )
   );
 }
