@@ -819,7 +819,7 @@ A.button:hover, A.button:active {
 }
 
 #events H2 {
-  margin: 1em 0;
+  margin: 0.8em 0 0.94em;
   color: #F7B747;
   font-family: 'Medula One', serif;
   font-weight: 400;
@@ -834,7 +834,7 @@ A.button:hover, A.button:active {
 #event-list {
   height: 650px;
   overflow: auto;
-  margin-right: 16px;
+  margin: 0 16px 15px 0;
   color: #C8C8C8;
   font-family: 'Rokkitt', serif;
   font-weight: 400;
@@ -878,6 +878,13 @@ A.button:hover, A.button:active {
   border: none;
   background: #696E6E;
   height: 2px;
+}
+
+#event-list .button {
+  margin: 1em 1.25em 0 0;
+  padding: 0.7em 0.9em 0.4em 1em;
+  font-size: 9px;
+  line-height: 1em;
 }
 
 #calendar {

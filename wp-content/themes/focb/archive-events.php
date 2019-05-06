@@ -40,18 +40,39 @@
 
           if ($post->event_location != "") echo "<h6>".$post->event_location."</h6>\n";
 
+          echo '<a href="#" class="button">More Info</a>';
+          echo '<a href="#" class="button">Register</a>';
+
           $ecount++;
         endwhile; ?>
       </div> <!-- #event-list -->
     </div> <!-- #events -->
 
-    <div id="calendar">
-      <h2 data-year="2019">April</h2>
+    <div id="calendar"></div>
 
-      <div id="cal-grid">
-        CALENDAR GRID
-      </div>
-    </div>
+    <script>
+      $(document).ready(function() {
+        var ajaxurl = '<?php echo admin_url("admin-ajax.php"); ?>';
+
+        function CalGrid(yearmonth) {
+          var caldata = {
+            action: 'cal_grid_by_ajax',
+            calmonth: yearmonth
+          }
+
+          $.post(ajaxurl, caldata, function(response) {
+            $('#calendar').html(response);
+          });
+        }
+
+        CalGrid(<?php echo date("Ym"); ?>);
+
+        $('#calendar').on('click', '.calnav', function(event) {
+          event.preventDefault();
+          CalGrid($(this).attr("href"));
+        });
+      });
+    </script>
   </div> <!-- .site-width -->
 </div> <!-- #events-calendar -->
 

@@ -355,7 +355,7 @@ function custom_events_column($column, $post_id) {
   global $post;
   switch ($column) {
     case 'event_date':
-      $edate = ($post->event_date != "TBD") ? date("m/d/Y", $post->event_date) : "TBD";
+      $edate = date("m/d/Y", $post->event_date);
       echo $edate;
       break;
     case 'event_start_time':
@@ -388,5 +388,130 @@ add_filter('post_row_actions', 'disable_events_quick_edit', 10, 2);
 function disable_events_quick_edit($actions, $post) {
   if ('events' === $post->post_type) unset($actions['inline hide-if-no-js']);
   return $actions;
+}
+
+add_action('wp_ajax_cal_grid_by_ajax', 'cal_grid_by_ajax_callback');
+add_action('wp_ajax_nopriv_cal_grid_by_ajax', 'cal_grid_by_ajax_callback');
+function cal_grid_by_ajax_callback() {
+  $date = mktime(0,0,0,substr($_POST['calmonth'],-2), 1, substr($_POST['calmonth'],0,4));
+  $lastmonth = mktime(0,0,0,substr($_POST['calmonth'],-2)-1, 1, substr($_POST['calmonth'],0,4));
+  $nextmonth = mktime(0,0,0,substr($_POST['calmonth'],-2)+1, 1, substr($_POST['calmonth'],0,4));
+
+  $firstday = strtotime("First day of " . date("F Y", $date) . " 00:00");
+  $lastday = strtotime("First day of " . date("F Y", $nextmonth) . " 00:00");
+
+  $days_in_month = date("j", $last_day-1);
+
+  $start_blanks = date("w", $first_day);
+  $end_blanks = (7 - date("w", $last_day));
+
+  if ($start_blanks > $end_blanks || $start_blanks == $end_blanks || $end_blanks == 7 || $start_blanks > 3) {
+    $start_blanks_content = $title;
+    $end_blanks_content = "";
+  } else {
+    $start_blanks_content = "";
+    $end_blanks_content = $title;
+  }
+  ?>
+
+  <h2 data-year="<?php echo date("Y", $date); ?>"><?php echo date("F", $date); ?></h2>
+
+  <a href="<?php echo date("Ym", $lastmonth); ?>" class="calnav">PREV</a>
+  <a href="<?php echo date("Ym", $nextmonth); ?>" class="calnav">NEXT</a>
+
+  <div id="cal-grid">
+    <?php
+    global $post;
+
+    $calargs = array(
+      'post_type' => 'events',
+      'showposts' => -1,
+      'meta_query' => array(
+        array('key' => 'event_date', 'value' => array($firstday, $lastday), 'type' => 'numeric', 'compare' => 'BETWEEN')
+      ),
+      'orderby' => 'meta_value',
+      'order'=> 'ASC'
+    );
+    $cal = new WP_Query($calargs);
+
+    $calevents = array();
+
+    while($cal->have_posts()) : $cal->the_post();
+      $MyDay = date("j", $post->event_date);
+      // $calevents[$MyDay][] = $cal->the_post();
+      // $calevents[$MyDay][]['title'] = get_the_title();
+      // $calevents[$MyDay][]['start_time'] = $post->event_start_time;
+      // $calevents[$MyDay][]['end_time'] = $post->event_end_time;
+      $calevents[$MyDay][] = get_the_title() . '|' . $post->event_start_time . '|' . $post->event_end_time;
+    endwhile;
+
+    var_dump($calevents);
+
+    // while($cal->have_posts()) : $cal->the_post();
+    //   echo '<h4>'.date("n/j/Y", $post->event_date).'</h4>';
+
+    //   the_title('<h3>','</h3>');
+
+    //   if ($post->event_start_time != "") {
+    //     echo '<h5>'.$post->event_start_time;
+    //     if ($post->event_start_time != "" && $post->event_end_time != "")
+    //       echo " - ".$post->event_end_time;
+    //     echo "</h5>\n";
+    //   }
+    // endwhile;
+    ?>
+
+    <table>
+      <tr>
+        <?php if ($start_blanks > 0 && $start_blanks < 7) { ?>
+        <td colspan="<?php echo $start_blanks; ?>">&nbsp;</td>
+        <?php } ?>
+
+        <?php
+        $day_count = $start_blanks;
+        $day_num = 1;
+
+        while ($day_num <= $days_in_month) {
+          echo "<td>";
+            echo "<div class=\"cal-date\">$day_num</div>";
+
+            if (isset($calevents[$day_num])) {
+              $i = 1;
+
+              foreach($calevents[$day_num] as $value) {
+              // foreach (explode('|', $calevents[$day_num]) as $value) {
+                $val = explode('|', $value);
+                echo $val[0];
+                echo $val[1];
+                echo $val[2];
+                // echo $calevents[$day_num][$key]['title'];
+                // echo '<a href="#" class="'.substr($calevents[$day_num][$key]['start_time'],-2).'"></a>';
+              }
+
+              $i++;
+            }
+          echo "</td>\n";
+
+          $day_count++;
+
+          // Start a new row every week
+          if ($day_count > 6) {
+            if ($day_num != $days_in_month) echo "</tr>\n<tr>\n";
+            $day_count = 0;
+          }
+
+          $day_num++;
+        }
+        ?>
+
+        <?php if ($end_blanks > 0 && $end_blanks < 7) { ?>
+        <td colspan="<?php echo $end_blanks; ?>">&nbsp;</td>
+        <?php } ?>
+      </tr>
+    </table>
+  </div>
+  
+  <?php
+  wp_die();
 }
 ?>
