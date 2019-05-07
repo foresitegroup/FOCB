@@ -31,17 +31,17 @@
 
           the_title('<h3>','</h3>');
 
-          if ($post->event_start_time != "") {
-            echo '<h5>'.$post->event_start_time;
-            if ($post->event_start_time != "" && $post->event_end_time != "")
-              echo " - ".$post->event_end_time;
+          if (date("g:iA", $post->event_date) != "12:00AM") {
+            echo '<h5>'.date("g:iA", $post->event_date);
+            if (date("g:iA", $post->event_date) != "12:00AM" && date("g:iA", $post->event_end_time) != "12:00AM")
+              echo "-".date("g:iA", $post->event_end_time);
             echo "</h5>\n";
           }
 
           if ($post->event_location != "") echo "<h6>".$post->event_location."</h6>\n";
 
-          echo '<a href="#" class="button">More Info</a>';
-          echo '<a href="#" class="button">Register</a>';
+          echo '<a href="'.$post->post_name.'" class="button">More Info</a>';
+          echo '<a href="'.home_url().'/event-registration/" class="button">Register</a>';
 
           $ecount++;
         endwhile; ?>

@@ -272,9 +272,9 @@ function events_after_title($post) {
     <input type="text" name="event_date" placeholder="Event Date" value="<?php if ($post->event_date != "") echo date("m/d/Y", $post->event_date); ?>" id="event_date" autocomplete="off"><br>
     <br>
     
-    <input type="text" name="event_start_time" placeholder="Start Time" value="<?php if ($post->event_start_time != "") echo $post->event_start_time; ?>" id="event_start_time" autocomplete="off">
+    <input type="text" name="event_start_time" placeholder="Start Time" value="<?php if ($post->event_date != "" && date("g:i A", $post->event_date) != "12:00 AM") echo date("g:i A", $post->event_date); ?>" id="event_start_time" autocomplete="off">
     &mdash;
-    <input type="text" name="event_end_time" placeholder="End Time" value="<?php if ($post->event_end_time != "") echo $post->event_end_time; ?>" id="event_end_time" autocomplete="off"><br>
+    <input type="text" name="event_end_time" placeholder="End Time" value="<?php if ($post->event_end_time != "") echo date("g:i A", $post->event_end_time); ?>" id="event_end_time" autocomplete="off"><br>
     You may set a Start Time with no End Time.<br>
     <br>
 
@@ -308,7 +308,7 @@ function events_css() {
 add_filter('wp_insert_post_data', 'events_custom_permalink');
 function events_custom_permalink($data) {
   if ($data['post_type'] == 'events') {
-    $data['post_name'] = sanitize_title($data['post_title']);
+    $data['post_name'] = sanitize_title($data['post_title'].'-'.date("m-d-Y", strtotime($_POST['event_date'])));
   }
   return $data;
 }
@@ -316,19 +316,19 @@ function events_custom_permalink($data) {
 add_action('save_post', 'events_save');
 function events_save($post_id) {
   if (!empty($_POST['event_date'])) {
-    update_post_meta($post_id, 'event_date', strtotime($_POST['event_date']));
+    update_post_meta($post_id, 'event_date', strtotime($_POST['event_date']." ".$_POST['event_start_time']));
   } else {
     delete_post_meta($post_id, 'event_date');
   }
 
-  if (!empty($_POST['event_start_time'])) {
-    update_post_meta($post_id, 'event_start_time', $_POST['event_start_time']);
-  } else {
+  // if (!empty($_POST['event_start_time'])) {
+  //   update_post_meta($post_id, 'event_start_time', $_POST['event_start_time']);
+  // } else {
     delete_post_meta($post_id, 'event_start_time');
-  }
+  // }
 
   if (!empty($_POST['event_end_time'])) {
-    update_post_meta($post_id, 'event_end_time', $_POST['event_end_time']);
+    update_post_meta($post_id, 'event_end_time', strtotime($_POST['event_date']." ".$_POST['event_end_time']));
   } else {
     delete_post_meta($post_id, 'event_end_time');
   }
@@ -343,7 +343,7 @@ function events_save($post_id) {
 add_filter('manage_events_posts_columns', 'set_custom_edit_events_columns');
 function set_custom_edit_events_columns($columns) {
   $columns['event_date'] = "Event Date";
-  $columns['event_start_time'] = "Time";
+  $columns['event_date_time'] = "Time";
 
   unset($columns['date']);
 
@@ -358,10 +358,10 @@ function custom_events_column($column, $post_id) {
       $edate = date("m/d/Y", $post->event_date);
       echo $edate;
       break;
-    case 'event_start_time':
-      if ($post->event_start_time != "") echo $post->event_start_time;
-      if ($post->event_start_time != "" && $post->event_end_time != "")
-        echo " - ".$post->event_end_time;
+    case 'event_date_time':
+      if (date("g:iA", $post->event_date) != "12:00AM") echo date("g:iA", $post->event_date);
+      if (date("g:iA", $post->event_date) != "12:00AM" && date("g:iA", $post->event_end_time) != "12:00AM")
+        echo "-".date("g:iA", $post->event_end_time);
       break;
   }
 }
@@ -400,10 +400,10 @@ function cal_grid_by_ajax_callback() {
   $firstday = strtotime("First day of " . date("F Y", $date) . " 00:00");
   $lastday = strtotime("First day of " . date("F Y", $nextmonth) . " 00:00");
 
-  $days_in_month = date("j", $last_day-1);
+  $days_in_month = date("j", $lastday-1);
 
-  $start_blanks = date("w", $first_day);
-  $end_blanks = (7 - date("w", $last_day));
+  $start_blanks = date("w", $firstday);
+  $end_blanks = (7 - date("w", $lastday));
 
   if ($start_blanks > $end_blanks || $start_blanks == $end_blanks || $end_blanks == 7 || $start_blanks > 3) {
     $start_blanks_content = $title;
@@ -415,10 +415,7 @@ function cal_grid_by_ajax_callback() {
   ?>
 
   <h2 data-year="<?php echo date("Y", $date); ?>"><?php echo date("F", $date); ?></h2>
-
-  <a href="<?php echo date("Ym", $lastmonth); ?>" class="calnav">PREV</a>
-  <a href="<?php echo date("Ym", $nextmonth); ?>" class="calnav">NEXT</a>
-
+  
   <div id="cal-grid">
     <?php
     global $post;
@@ -438,33 +435,23 @@ function cal_grid_by_ajax_callback() {
 
     while($cal->have_posts()) : $cal->the_post();
       $MyDay = date("j", $post->event_date);
-      // $calevents[$MyDay][] = $cal->the_post();
-      // $calevents[$MyDay][]['title'] = get_the_title();
-      // $calevents[$MyDay][]['start_time'] = $post->event_start_time;
-      // $calevents[$MyDay][]['end_time'] = $post->event_end_time;
-      $calevents[$MyDay][] = get_the_title() . '|' . $post->event_start_time . '|' . $post->event_end_time;
+      $calevents[$MyDay][] = get_the_title() . '|' . $post->event_date . '|' . $post->event_end_time . '|' . $post->post_name;
     endwhile;
-
-    var_dump($calevents);
-
-    // while($cal->have_posts()) : $cal->the_post();
-    //   echo '<h4>'.date("n/j/Y", $post->event_date).'</h4>';
-
-    //   the_title('<h3>','</h3>');
-
-    //   if ($post->event_start_time != "") {
-    //     echo '<h5>'.$post->event_start_time;
-    //     if ($post->event_start_time != "" && $post->event_end_time != "")
-    //       echo " - ".$post->event_end_time;
-    //     echo "</h5>\n";
-    //   }
-    // endwhile;
     ?>
 
-    <table>
+    <table cellspacing="0">
+      <tr>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+      </tr>
       <tr>
         <?php if ($start_blanks > 0 && $start_blanks < 7) { ?>
-        <td colspan="<?php echo $start_blanks; ?>">&nbsp;</td>
+        <td colspan="<?php echo $start_blanks; ?>" class="blank">&nbsp;</td>
         <?php } ?>
 
         <?php
@@ -478,14 +465,29 @@ function cal_grid_by_ajax_callback() {
             if (isset($calevents[$day_num])) {
               $i = 1;
 
-              foreach($calevents[$day_num] as $value) {
-              // foreach (explode('|', $calevents[$day_num]) as $value) {
-                $val = explode('|', $value);
-                echo $val[0];
-                echo $val[1];
-                echo $val[2];
-                // echo $calevents[$day_num][$key]['title'];
-                // echo '<a href="#" class="'.substr($calevents[$day_num][$key]['start_time'],-2).'"></a>';
+              foreach($calevents[$day_num] as $row) {
+                $calevent = explode('|', $row);
+                ?>
+                <span class="<?php echo date("a", $calevent[1]); ?>">
+                  <div class="popup">
+                    <?php
+                    echo $calevent[0];
+
+                    if (date("g:iA", $calevent[1]) != "12:00AM") {
+                      echo '<div class="date">'.date("g:iA", $calevent[1]);
+                      if (date("g:iA", $calevent[1]) != "12:00AM" && date("g:iA", $calevent[2]) != "12:00AM")
+                        echo "-".date("g:iA", $calevent[2]);
+                      echo "</div>\n";
+                    }
+                    ?>
+                    
+                    <div class="buttons">
+                      <a href="<?php echo $calevent[3]; ?>" class="button">More Info</a>
+                      <a href="<?php echo home_url(); ?>/event-registration/" class="button">Register</a>
+                    </div>
+                  </div>
+                </span>
+                <?php
               }
 
               $i++;
@@ -505,10 +507,13 @@ function cal_grid_by_ajax_callback() {
         ?>
 
         <?php if ($end_blanks > 0 && $end_blanks < 7) { ?>
-        <td colspan="<?php echo $end_blanks; ?>">&nbsp;</td>
+        <td colspan="<?php echo $end_blanks; ?>" class="blank">&nbsp;</td>
         <?php } ?>
       </tr>
     </table>
+
+    <a href="<?php echo date("Ym", $lastmonth); ?>" class="calnav">Prev Month</a>
+    <a href="<?php echo date("Ym", $nextmonth); ?>" class="calnav">Next Month</a>
   </div>
   
   <?php

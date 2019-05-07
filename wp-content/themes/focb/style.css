@@ -938,8 +938,106 @@ A.button:hover, A.button:active {
   line-height: 1em;
 }
 
-#cal-grid {
-  outline: 1px solid red;
+#cal-grid TABLE {
+  width: 100%;
+  padding: 0 2.27%;
+}
+
+#cal-grid TH {
+  font-family: 'Rokkitt', serif;
+  color: #F7B747;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+#cal-grid TD:not(.blank) {
+  width: 12%;
+  border: 6px solid #696E6E;
+  background: #E1E2E2;
+  padding: 0;
+  position: relative;
+}
+
+#cal-grid TD:not(.blank):before {
+  content: "";
+  display: block;
+  padding-top: 82.5%;
+}
+
+#cal-grid TD .cal-date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.8em;
+  border-radius: 0 0 5px 5px;
+  padding: 0.4em 0;
+  background: #F7B747;
+  color: #2A3130;
+  font-family: 'Rokkitt', serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1em;
+  text-align: center;
+}
+
+#cal-grid TD SPAN {
+  position: absolute;
+  bottom: 19%;
+  width: 27.77%;
+}
+
+#cal-grid TD SPAN:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+#cal-grid TD SPAN.am { background: #E8A350; left: 14%; }
+#cal-grid TD SPAN.pm { background: #FF6600; right: 14%; }
+
+#cal-grid TD SPAN .popup {
+  position: absolute;
+  z-index: 10;
+  bottom: 180%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 8px;
+  padding: 1.6em 2.45em;
+  background: rgba(42,49,48,0.95);
+  color: #FFFFFF;
+  font-family: 'Rokkitt', serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.2em;
+  text-transform: uppercase;
+  text-align: center;
+  display: none;
+}
+
+#cal-grid TD SPAN .popup:after {
+  content: "";
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  border-top: 28px solid rgba(42,49,48,0.95);
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  transform: translateX(-50%);
+}
+
+#cal-grid TD SPAN:hover .popup { display: block; }
+
+#cal-grid TD SPAN .popup .date { padding: 0.2em 0; color: #F7B747; }
+
+#cal-grid TD SPAN .popup .buttons { white-space: nowrap; }
+
+#cal-grid TD SPAN .popup .button {
+  margin: 0.7em 0.325em 0;
+  padding: 0.7em 0.9em 0.4em 1em;
+  font-size: 9px;
+  line-height: 1em;
 }
 
 
