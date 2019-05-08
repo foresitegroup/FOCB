@@ -883,14 +883,13 @@ A.button:hover, A.button:active {
 #event-list .button {
   margin: 1em 1.25em 0 0;
   padding: 0.7em 0.9em 0.4em 1em;
-  font-size: 9px;
+  font-size: 75%;
   line-height: 1em;
 }
 
 #calendar {
   box-sizing: border-box;
   padding-top: 120px;
-  /*min-height: 742px;*/
   width: calc(100% - 352px);
   background: #696E6E;
   position: relative;
@@ -1016,6 +1015,9 @@ A.button:hover, A.button:active {
   display: none;
 }
 
+#cal-grid TR TD:first-of-type SPAN .popup { transform: translateX(-18%); }
+#cal-grid TR TD:last-of-type SPAN .popup { transform: translateX(-75%); }
+
 #cal-grid TD SPAN .popup:after {
   content: "";
   position: absolute;
@@ -1027,6 +1029,9 @@ A.button:hover, A.button:active {
   transform: translateX(-50%);
 }
 
+#cal-grid TR TD:first-of-type SPAN .popup:after { left: 18%; }
+#cal-grid TR TD:last-of-type SPAN .popup:after { left: 75%; }
+
 #cal-grid TD SPAN:hover .popup { display: block; }
 
 #cal-grid TD SPAN .popup .date { padding: 0.2em 0; color: #F7B747; }
@@ -1036,11 +1041,191 @@ A.button:hover, A.button:active {
 #cal-grid TD SPAN .popup .button {
   margin: 0.7em 0.325em 0;
   padding: 0.7em 0.9em 0.4em 1em;
-  font-size: 9px;
+  font-size: 75%;
   line-height: 1em;
 }
 
+#cal-grid-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 3%;
+  color: #FFFFFF;
+  font-family: 'Rokkitt', serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1em;
+  text-transform: uppercase;
+}
 
+#cal-grid-footer A:link, #cal-grid-footer A.visited { color: #F7B747; }
+#cal-grid-footer A:hover, #cal-grid-footer A.active { color: #2A3130; }
+
+#cal-grid-footer A:first-of-type:before {
+  content: "\00ab";
+  display: inline-block;
+  margin-right: 0.3em;
+}
+
+#cal-grid-footer A:last-of-type:after {
+  content: "\00bb";
+  display: inline-block;
+  margin-left: 0.3em;
+}
+
+#cal-grid-footer > DIV { display: flex; align-items: center; }
+
+#cal-grid-footer > DIV SPAN {
+  display: inline-block;
+  margin-right: 0.5em;
+  width: 25px;
+  height: 25px;
+}
+
+#cal-grid-footer > DIV SPAN.am { background: #E8A350; }
+#cal-grid-footer > DIV SPAN.pm { background: #FF6600; margin-left: 2em; }
+
+#workshops {
+  padding: 40px 0;
+  background: #F7B747 url(images/grid.png);
+  color: #FFFFFF;
+  text-align: center;
+  font-weight: 700;
+}
+
+#workshops .site-width { width: 942px; }
+
+#workshops H2 {
+  margin: 0 0 0.5em;
+  color: #2A3130;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 0.85em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+#workshops .button:link, #workshops .button:visited { border-color: #2A3130; color: #2A3130; margin-top: 1.5em; }
+#workshops .button:hover, #workshops .button:active { border-color: #E48D36; color: #E48D36; }
+
+#page-header.single-event {
+  font-family: 'Rokkitt', serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1em;
+  text-transform: uppercase;
+  padding-bottom: 25px;
+}
+
+#page-header.single-event H1 {
+  margin: 0 0 0.15em;
+  color: #FFFFFF;
+  font-size: 200%;
+}
+
+#page-header.single-event .back {
+  display: inline-block;
+  margin-top: 0.5em;
+  font-size: 75%;
+  line-height: 1em;
+}
+
+#page-header.single-event .back:first-of-type:before {
+  content: "\00ab";
+  display: inline-block;
+  margin-right: 0.3em;
+}
+
+#page-header.single-event .site-width {
+  position: relative;
+  box-sizing: border-box;
+  padding-right: 220px;
+}
+
+#page-header.single-event .button:link, #page-header.single-event .button:visited {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-70%);
+  border: 7px solid #2A3130;
+  color: #2A3130;
+  font-size: 100%;
+  line-height: 1em;
+}
+
+#page-header.single-event .button:hover, #page-header.single-event .button:active {
+  background: #2A3130;
+  color: #FFFFFF;
+}
+
+#single-event {
+  background: #2A3130;
+  color: #FFFFFF;
+  padding: 30px 0;
+}
+
+#single-event H2 {
+  margin: 0 0 0.25em;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+}
+
+#single-event .location {
+  font-family: 'Rokkitt', serif;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+#single-event .location-map {
+  position: relative;
+  padding-top: 31.81%;
+}
+
+#single-event .location-map IFRAME {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#single-event .button {
+  margin: 50px 0;
+  border-width: 7px;
+  font-size: 28px;
+  line-height: 1em;
+}
+
+#event-registration {
+  background: #2A3130;
+  color: #FFFFFF;
+  padding: 30px 0;
+}
+
+#event-registration .ds-form {
+  position: relative;
+  padding-top: 120%;
+}
+
+#event-registration .ds-form IFRAME {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+#event-registration .ds-form IFRAME .container {
+  width: 100% !important;
+  outline: 1px solid red;
+  background-color: #FFFFFF !important;
+}
 
 
 
@@ -1084,6 +1269,23 @@ A.button:hover, A.button:active {
   #why-we-exist H2, #what-we-do H2, #sub-tabs H2 { left: 2%; width: 98%; }
 
   #sub-tabs { padding: 115px 0 55px 2%; }
+  
+  #cal-grid TH { font-size: 1vw; }
+
+  #cal-grid TD .cal-date, #cal-grid-footer { font-size: 1.2vw; }
+
+  #cal-grid TD:not(.blank) { border-width: 0.52vw; }
+
+  #cal-grid TD SPAN .popup { font-size: 1vw; }
+
+  #cal-grid TD SPAN .popup:after {
+    bottom: -2.4vw;
+    border-top-width: 2.4vw;
+    border-left-width: 0.96vw;
+    border-right-width: 0.96vw;
+  }
+
+  #cal-grid-footer > DIV SPAN { width: 2.19vw; height: 2.19vw; }
 }
 
 @media only screen and (max-width: 1100px) {
@@ -1098,6 +1300,8 @@ A.button:hover, A.button:active {
   #main-header #logo, #footer-logo { margin-left: 0; }
 
   #bird { width: 42vw; }
+
+  #workshops .site-width { width: 96%; }
 }
 
 @media only screen and (max-width: 950px) {
@@ -1191,6 +1395,41 @@ A.button:hover, A.button:active {
   #home-map-image { position: relative; width: 100%; background-position: center; margin-top: 56px; }
 
   #home-map-image:before { content: ""; display: block; padding-top: 60%; }
+
+  #events-calendar:before { display: none; }
+
+  #events-calendar .site-width { flex-direction: column; width: 100%; }
+
+  #events { width: 100%; }
+
+  #events H2 { font-size: 50px; }
+
+  #event-list { margin: 0 16px 15px 2%; font-size: 18px; }
+
+  #calendar { width: 100%; padding-bottom: 2em; }
+  
+  #cal-grid TH { font-size: 2vw; }
+
+  #cal-grid TD .cal-date, #cal-grid-footer { font-size: 2.2vw; }
+
+  #cal-grid TD:not(.blank) { border-width: 0.8vw; }
+
+  #cal-grid TD SPAN .popup { font-size: 2vw; }
+
+  #cal-grid TR TD:first-of-type SPAN .popup { transform: translateX(-15%); }
+  #cal-grid TR TD:last-of-type SPAN .popup { transform: translateX(-85%); }
+
+  #cal-grid TD SPAN .popup:after {
+    bottom: -3.2vw;
+    border-top-width: 3.2vw;
+    border-left-width: 1.3vw;
+    border-right-width: 1.3vw;
+  }
+
+  #cal-grid TR TD:first-of-type SPAN .popup:after { left: 15%; }
+  #cal-grid TR TD:last-of-type SPAN .popup:after { left: 85%; }
+
+  #cal-grid-footer > DIV SPAN { width: 3.5vw; height: 3.5vw; }
 }
 
 @media only screen and (max-width: 700px) {
@@ -1224,6 +1463,9 @@ A.button:hover, A.button:active {
 
   #tab-about + LABEL, #tab-meet + LABEL { left: 2%; width: 48.1%; }
   #tab-meet + LABEL { left: auto; right: 2%; }
+
+  #page-header.single-event .site-width { padding-right: 0; }
+  #page-header.single-event .button { display: none; }
 }
 
 @media only screen and (max-width: 480px) {

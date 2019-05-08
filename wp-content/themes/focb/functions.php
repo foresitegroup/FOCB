@@ -241,11 +241,12 @@ function events() {
         'not_found_in_trash' => 'No Events found in Trash',
       ),
       'show_ui' => true,
-      'menu_position' => 5,
+      'menu_position' => 50,
       'menu_icon' => 'dashicons-calendar-alt',
       'supports' => array('title', 'editor'),
       'has_archive' => true,
-      'publicly_queryable' => true
+      'publicly_queryable' => true,
+      'show_in_nav_menus' => true
     )
   );
 }
@@ -511,9 +512,17 @@ function cal_grid_by_ajax_callback() {
         <?php } ?>
       </tr>
     </table>
+    
+    <div id="cal-grid-footer">
+      <a href="<?php echo date("Ym", $lastmonth); ?>" class="calnav">Prev Month</a>
 
-    <a href="<?php echo date("Ym", $lastmonth); ?>" class="calnav">Prev Month</a>
-    <a href="<?php echo date("Ym", $nextmonth); ?>" class="calnav">Next Month</a>
+      <div>
+        <span class="am"></span> = AM Event
+        <span class="pm"></span> = PM Event
+      </div>
+
+      <a href="<?php echo date("Ym", $nextmonth); ?>" class="calnav">Next Month</a>
+    </div>
   </div>
   
   <?php

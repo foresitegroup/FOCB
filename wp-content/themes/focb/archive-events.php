@@ -8,7 +8,7 @@
   <div class="site-width">
     <div id="events">
       <h2>Upcoming Events</h2>
-      
+
       <div id="event-list">
         <?php
         $args = array(
@@ -75,5 +75,15 @@
     </script>
   </div> <!-- .site-width -->
 </div> <!-- #events-calendar -->
+
+<div id="workshops">
+  <div class="site-width">
+    <h2>Natural History Workshops</h2>
+    
+    The bog's onsite UWM Field Station's natural history workshops offer a unique opportunity to explore focused topics in natural history under the guidance of noted authorities. Hands-on field and laboratory investigations teach ecology, evolution, use of taxonomic keys, and techniques.<br>
+
+    <a href="#" class="button">Learn More &amp; Register Here</a>
+  </div>
+</div>
 
 <?php get_footer(); ?>
