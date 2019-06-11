@@ -12,6 +12,7 @@
       <?php wp_nav_menu(array('theme_location'=>'footer-col1','container'=>'nav')); ?>
       <?php wp_nav_menu(array('theme_location'=>'footer-col2','container'=>'nav')); ?>
       <?php wp_nav_menu(array('theme_location'=>'footer-col3','container'=>'nav')); ?>
+      <?php wp_nav_menu(array('theme_location'=>'footer-col4','container'=>'nav')); ?>
     </div>
   </div>
 

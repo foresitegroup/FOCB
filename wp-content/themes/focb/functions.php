@@ -108,7 +108,8 @@ function register_my_menus() {
       'top-menu' => __('Top Menu'),
       'footer-col1' => __('Footer Menu Column 1'),
       'footer-col2' => __('Footer Menu Column 2'),
-      'footer-col3' => __('Footer Menu Column 3')
+      'footer-col3' => __('Footer Menu Column 3'),
+      'footer-col4' => __('Footer Menu Column 4')
     )
   );
 }
@@ -131,13 +132,13 @@ function disable_visual_editor($can) {
 
 
 /*
-*  Add second text box to "About the Friends" edit page
+*  Add second text box to "The Friends Mission" edit page
 */
-add_action('add_meta_boxes', 'about_the_friends_metabox');
-function about_the_friends_metabox() {
+add_action('add_meta_boxes', 'the_friends_mission_metabox');
+function the_friends_mission_metabox() {
   global $post;
 
-  if ($post->post_name == 'about-the-friends') {
+  if ($post->post_name == 'the-friends-mission') {
     add_meta_box('what_we_do_mb', 'What We Do', 'what_we_do_mb_content', 'page', 'normal');
   }
 }
@@ -322,12 +323,6 @@ function events_save($post_id) {
     delete_post_meta($post_id, 'event_date');
   }
 
-  // if (!empty($_POST['event_start_time'])) {
-  //   update_post_meta($post_id, 'event_start_time', $_POST['event_start_time']);
-  // } else {
-    delete_post_meta($post_id, 'event_start_time');
-  // }
-
   if (!empty($_POST['event_end_time'])) {
     update_post_meta($post_id, 'event_end_time', strtotime($_POST['event_date']." ".$_POST['event_end_time']));
   } else {
@@ -338,6 +333,14 @@ function events_save($post_id) {
     update_post_meta($post_id, 'event_location', $_POST['event_location']);
   } else {
     delete_post_meta($post_id, 'event_location');
+  }
+}
+
+add_action('wp_trash_post', 'events_skip_trash');
+function events_skip_trash($post_id) {
+  if (get_post_type($post_id) == 'events') {
+    wp_delete_post($post_id, true);
+    remove_action('deleted_post', 'action_deleted_post', 10, 1);
   }
 }
 
@@ -354,6 +357,7 @@ function set_custom_edit_events_columns($columns) {
 add_action('manage_events_posts_custom_column', 'custom_events_column', 10, 2);
 function custom_events_column($column, $post_id) {
   global $post;
+
   switch ($column) {
     case 'event_date':
       $edate = date("m/d/Y", $post->event_date);
@@ -375,7 +379,7 @@ function set_custom_events_sortable_columns($columns) {
 
 add_action('pre_get_posts', 'events_custom_orderby', 4);
 function events_custom_orderby($query) {
-  if (!$query->is_main_query() || 'events' != $query->get('post_type')) return;
+  if (!$query->is_main_query() || $query->get('post_type') != 'events') return;
 
   $orderby = $query->get('orderby');
 

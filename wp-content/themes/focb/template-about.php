@@ -1,5 +1,5 @@
 <?php
-/* Template Name: About Us */
+/* Template Name: About */
 
 get_header();
 ?>
@@ -10,16 +10,16 @@ get_header();
 
 <div id="tabs">
   <input id="tab-about" type="radio" name="tabs" checked>
-  <label for="tab-about">About the Friends</label>
+  <label for="tab-about">The Friend's Mission</label>
 
-  <input id="tab-meet" type="radio" name="tabs" checked>
+  <input id="tab-meet" type="radio" name="tabs">
   <label for="tab-meet">Meet the Friends</label>
 
   <div id="content-about">
     <div id="why-we-exist">
       <h2>Why We Exist</h2>
       <?php
-      $about = get_posts(array('name' => 'about-the-friends', 'post_type' => 'page'));
+      $about = get_posts(array('name' => 'the-friends-mission', 'post_type' => 'page'));
       echo apply_filters('the_content', $about[0]->post_content);
       ?>
     </div>

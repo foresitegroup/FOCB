@@ -52,7 +52,7 @@
   <div class="site-width">
     <h2>Natural History Workshops</h2>
     
-    The bog's onsite UWM Field Station's natural history workshops offer a unique opportunity to explore focused topics in natural history under the guidance of noted authorities. Hands-on field and laboratory investigations teach ecology, evolution, use of taxonomic keys, and techniques.<br>
+    The UWM Field Station located at the Cedarburg Bog offers a series of natural history workshops. These classes offer a unique opportunity to explore focused topics in natural history under the guidance of noted authorities. Hands-on field and laboratory investigations teach ecology, evolution, use of taxonomic keys, and techniques.<br>
 
     <a href="#" class="button">Learn More &amp; Register Here</a>
   </div>
