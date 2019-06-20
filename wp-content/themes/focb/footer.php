@@ -6,7 +6,7 @@
   </div>
 
   <div id="footer">
-    <a href="<?php echo home_url(); ?>" id="footer-logo"><img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" alt="Friends of the Cedarburg Bog"></a>
+    <a href="<?php echo home_url(); ?>" id="footer-logo"><img src="<?php echo get_template_directory_uri(); ?>/images/dnr-uwm.png" alt=""></a>
 
     <div class="site-width">
       <?php wp_nav_menu(array('theme_location'=>'footer-col1','container'=>'nav')); ?>

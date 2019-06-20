@@ -139,20 +139,20 @@ function the_friends_mission_metabox() {
   global $post;
 
   if ($post->post_name == 'the-friends-mission') {
-    add_meta_box('what_we_do_mb', 'What We Do', 'what_we_do_mb_content', 'page', 'normal');
+    add_meta_box('tfm_section2_mb', 'Our Committees', 'tfm_section2_mb_content', 'page', 'normal');
   }
 }
 
-function what_we_do_mb_content($post) {
-  wp_editor(html_entity_decode($post->what_we_do, ENT_QUOTES), 'what_we_do', array('textarea_rows' => 25));
+function tfm_section2_mb_content($post) {
+  wp_editor(html_entity_decode($post->tfm_section2, ENT_QUOTES), 'tfm_section2', array('textarea_rows' => 25));
 }
 
-add_action('save_post', 'what_we_do_save');
-function what_we_do_save($post_id) {
-  if (!empty($_POST['what_we_do'])) {
-    update_post_meta($post_id, 'what_we_do', $_POST['what_we_do']);
+add_action('save_post', 'tfm_section2_save');
+function tfm_section2_save($post_id) {
+  if (!empty($_POST['tfm_section2'])) {
+    update_post_meta($post_id, 'tfm_section2', $_POST['tfm_section2']);
   } else {
-    delete_post_meta($post_id, 'what_we_do');
+    delete_post_meta($post_id, 'tfm_section2');
   }
 }
 
@@ -216,6 +216,141 @@ function meet_the_friends_save($post_id) {
     update_post_meta($post_id, 'mtf_friends', $_POST['mtf_friends']);
   } else {
     delete_post_meta($post_id, 'mtf_friends');
+  }
+}
+
+
+/*
+*  Add additional text boxes to "About the Bog" edit page
+*/
+add_action('add_meta_boxes', 'about_the_bog_metabox');
+function about_the_bog_metabox() {
+  global $post;
+
+  if ($post->post_name == 'about-the-bog') {
+    add_meta_box('atb_section2_mb', 'Visiting the Bog', 'atb_section2_mb_content', 'page', 'normal');
+    add_meta_box('atb_altmaps_mb', 'Alternate Maps', 'atb_altmaps_mb_content', 'page', 'normal');
+  }
+}
+
+function atb_section2_mb_content($post) {
+  wp_editor(html_entity_decode($post->atb_section2, ENT_QUOTES), 'atb_section2', array('textarea_rows' => 25));
+}
+
+function atb_altmaps_mb_content($post) {
+  wp_editor(html_entity_decode($post->atb_altmaps, ENT_QUOTES), 'atb_altmaps', array('textarea_rows' => 5, 'tinymce' => false));
+}
+
+add_action('save_post', 'atb_section2_save');
+function atb_section2_save($post_id) {
+  if (!empty($_POST['atb_section2'])) {
+    update_post_meta($post_id, 'atb_section2', $_POST['atb_section2']);
+  } else {
+    delete_post_meta($post_id, 'atb_section2');
+  }
+
+  if (!empty($_POST['atb_altmaps'])) {
+    update_post_meta($post_id, 'atb_altmaps', $_POST['atb_altmaps']);
+  } else {
+    delete_post_meta($post_id, 'atb_altmaps');
+  }
+}
+
+
+/*
+*  Add additional text boxes to "Plants & Animals" edit page
+*/
+add_action('add_meta_boxes', 'animal_lists_metabox');
+function animal_lists_metabox() {
+  global $post;
+
+  if ($post->post_name == 'plants-and-animals') {
+    add_meta_box('plants_mb', 'Animal Lists', 'animal_lists_mb_content', 'page', 'normal');
+  }
+}
+
+function animal_lists_mb_content($post) {
+  wp_editor(html_entity_decode($post->animal_lists, ENT_QUOTES), 'animal_lists');
+}
+
+add_action('save_post', 'animal_lists_save');
+function animal_lists_save($post_id) {
+  if (!empty($_POST['animal_lists'])) {
+    update_post_meta($post_id, 'animal_lists', $_POST['animal_lists']);
+  } else {
+    delete_post_meta($post_id, 'animal_lists');
+  }
+}
+
+
+/*
+*  Add additional text boxes to "Get Involved" edit page
+*/
+add_action('add_meta_boxes', 'get_involved_metabox');
+function get_involved_metabox() {
+  global $post;
+
+  if ($post->post_name == 'get-involved') {
+    add_meta_box('get_involved_options_mb', 'How Can I Get Involved in the Cedarburg Bog?', 'get_involved_options_mb_content', 'page', 'normal');
+  }
+}
+
+function get_involved_options_mb_content($post) {
+  $meta = get_post_meta($post->ID);
+
+  for ($i = 1; $i <= 12; $i++) {
+    if (array_key_exists('get_involved_option'.$i, $meta)) echo '<textarea name="get_involved_option'.$i.'" style="margin: 1em 0; width: 100%; height: 6em;">'.$meta['get_involved_option'.$i][0].'</textarea>';
+  }
+
+  ?>
+  <input type="button" class="button add-another" value="Add An Option">
+
+  <script>
+    var i = $('#get_involved_options_mb .inside TEXTAREA').size() + 1;
+
+    $(".add-another").click(function(e){
+      e.preventDefault();
+      $("#get_involved_options_mb .inside").append('<textarea name="get_involved_option'+i+'" style="margin: 1em 0; width: 100%; height: 6em;"></textarea>');
+      i++;
+    });
+  </script>
+  <?php
+}
+
+add_action('save_post', 'get_involved_save');
+function get_involved_save($post_id) {
+  for ($i = 1; $i <= 12; $i++) {
+    if (!empty($_POST['get_involved_option'.$i])) {
+      update_post_meta($post_id, 'get_involved_option'.$i, $_POST['get_involved_option'.$i]);
+    } else {
+      delete_post_meta($post_id, 'get_involved_option'.$i);
+    }
+  }
+}
+
+
+/*
+*  Add additional text boxes to "Contact" edit page
+*/
+add_action('add_meta_boxes', 'contact_metabox');
+function contact_metabox() {
+  global $post;
+
+  if ($post->post_name == 'contact') {
+    add_meta_box('contact_altmaps_mb', 'Alternate Maps', 'contact_altmaps_mb_content', 'page', 'normal');
+  }
+}
+
+function contact_altmaps_mb_content($post) {
+  wp_editor(html_entity_decode($post->contact_altmaps, ENT_QUOTES), 'contact_altmaps', array('textarea_rows' => 5, 'tinymce' => false));
+}
+
+add_action('save_post', 'contact_save');
+function contact_save($post_id) {
+  if (!empty($_POST['contact_altmaps'])) {
+    update_post_meta($post_id, 'contact_altmaps', $_POST['contact_altmaps']);
+  } else {
+    delete_post_meta($post_id, 'contact_altmaps');
   }
 }
 

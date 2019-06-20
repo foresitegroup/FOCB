@@ -51,6 +51,8 @@ P { margin: 0 0 1.5em; }
   margin: 0 auto;
 }
 
+.yellow { color: #F7B747; }
+
 #main-header-spacer { height: 105px; }
 
 .home #main-header-spacer {
@@ -80,7 +82,6 @@ P { margin: 0 0 1.5em; }
   margin-left: 49px;
   background: #F7B747;
   padding: 16px 10px 10px;
-  /*border-radius: 0px 0px 24px 24px;*/
   box-shadow: 0 0 40px 0 rgba(0,0,0,.84);
 }
 
@@ -261,7 +262,7 @@ LABEL[for="toggle-menu"] DIV:after { top: 12px; }
   color: #FFFFFF;
   font-family: 'Rokkitt', serif;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1em;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -270,32 +271,17 @@ LABEL[for="toggle-menu"] DIV:after { top: 12px; }
 
 #footer-logo {
   position: absolute;
-  top: -28px;
+  top: 2em;
   left: calc(50% - (1100px / 2));
   z-index: 99990;
-  margin-left: 34px;
-  background: #F7B747;
-  padding: 64px 18px 25px;
-  /*border-radius: 5px 0px 24px 24px;*/
-  box-shadow: -10px 0 40px 0 rgba(0,0,0,.3), 23px 0 40px 0 rgba(0,0,0,.3)
 }
 
-#footer-logo:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 100%;
-  width: 23px;
-  height: 28px;
-  background: linear-gradient(to top right, #BF8C34 50%, transparent 50%);
-}
-
-#footer-logo IMG { width: 140px; height: auto; }
+#footer-logo IMG { width: 160px; height: auto; }
 
 #footer .site-width {
   display: flex;
   justify-content: flex-end;
-  padding: 2.75em 0 3.8em;
+  padding: 2.75em 0 3.25em;
 }
 
 #footer NAV { margin-left: 2.5em; }
@@ -454,7 +440,7 @@ A.button:hover, A.button:active {
 
 #plant {
   position: absolute;
-  top: 20px;
+  top: 0;
   left: 0;
   width: 43.1875vw;
   height: auto;
@@ -470,7 +456,7 @@ A.button:hover, A.button:active {
 
 #home-plants-animals .site-width {
   box-sizing: border-box;
-  padding: 22.5vw 0 6.5vw;
+  padding: 18.5vw 0 6vw;
   letter-spacing: 0.1em;
   position: relative;
   z-index: 5;
@@ -616,26 +602,28 @@ A.button:hover, A.button:active {
   text-align: center;
 }
 
-#tab-about + LABEL, #tab-meet + LABEL {
+#tab1 + LABEL, #tab2 + LABEL {
   position: absolute;
   top: 0;
   left: calc((100% - 1100px) / 2);
   transform: translateY(-100%);
 }
 
-#tab-meet + LABEL { left: calc(((100% - 1100px) / 2) + 275px); }
+#tab2 + LABEL { left: calc(((100% - 1100px) / 2) + 275px); }
 
-#tab-about:checked + LABEL, #tab-meet:checked + LABEL {
+#tab1:checked + LABEL, #tab2:checked + LABEL {
   background: #37403F;
   color: #F7B747;
   cursor: default;
 }
 
-#tab-about ~ #content-about, #tab-meet ~ #content-meet { display: none; }
+#tab1 ~ #content1, #tab2 ~ #content2 { display: none; }
 
-#tab-about:checked ~ #content-about, #tab-meet:checked ~ #content-meet { display: block; }
+#tab1:checked ~ #content1, #tab2:checked ~ #content2 { display: block; }
 
-#why-we-exist, #what-we-do {
+#about-section1, #about-section2,
+#plants-section1, #plants-section2,
+#get-involved {
   background: url(images/camo.jpg) top center no-repeat;
   background-size: cover;
   color: #FFFFFF;
@@ -644,12 +632,23 @@ A.button:hover, A.button:active {
   position: relative;
 }
 
-#what-we-do {
+#about-section2 {
   background: #F7B747 url(images/grid.png);
   background-size: auto;
 }
 
-#why-we-exist H2, #what-we-do H2, #sub-tabs H2 {
+#plants-section1 { padding-bottom: 0; }
+#plants-section2 { transform: translateY(-40px); padding-bottom: 40px; }
+
+#plants-section1, #plants-section2 { background: none;  }
+
+#content2.plants-tab {
+  background: url(images/camo.jpg) top center no-repeat;
+  background-size: cover;
+}
+
+#about-section1 H2, #about-section2 H2, #sub-tabs H2,
+#plants-section1 H2, #plants-section2 H2, #get-involved H2 {
   margin: 0;
   color: #F7B747;
   font-family: 'Medula One', serif;
@@ -664,7 +663,7 @@ A.button:hover, A.button:active {
   overflow: hidden;
 }
 
-#what-we-do H2 { color: #292F2F; }
+#about-section2 H2 { color: #292F2F; }
 
 #sub-tabs > DIV H2 {
   margin-bottom: 0.75em;
@@ -674,7 +673,8 @@ A.button:hover, A.button:active {
   width: 100%;
 }
 
-#why-we-exist H2:after, #what-we-do H2:after, #sub-tabs H2:after {
+#about-section1 H2:after, #about-section2 H2:after, #sub-tabs H2:after,
+#plants-section1 H2:after, #plants-section2 H2:after, #get-involved H2:after {
   content: "";
   border-radius: 2px 0 0 2px;
   background: #F7B747;
@@ -686,9 +686,19 @@ A.button:hover, A.button:active {
   margin-left: 0.4em;
 }
 
-#what-we-do H2:after { background: #292F2F; }
+#about-section2 H2:after { background: #292F2F; }
 
-#what-we-do H3 {
+#about-section1 H3 {
+  margin: 0.5 0 1em;
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2em;
+  letter-spacing: 0.1em;
+}
+
+#about-section2 H3 {
   margin: 0 0 0.1em;
   color: #292F2F;
   font-family: 'Rokkitt', serif;
@@ -698,7 +708,16 @@ A.button:hover, A.button:active {
   text-transform: uppercase;
 }
 
-#content-meet {
+#about-section2.has-image { padding-right: 40%; }
+
+#about-section2.has-image IMG {
+  position: absolute;
+  bottom: 0;
+  right: calc((100% - 1100px) / 2);
+  transform: translateX(12%);
+}
+
+#content2 {
   background: #37403F;
   color: #FFFFFF;
   letter-spacing: 0.1em;
@@ -793,6 +812,152 @@ A.button:hover, A.button:active {
 #our-friends .row2 A {
   width: 130px;
   height: 185px;
+}
+
+#alt-maps { display: flex; align-items: center; color: #37413F; }
+
+#alt-maps H4 {
+  margin: 0;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#alt-maps A:link, #alt-maps A:visited {
+  margin-left: 1.25em;
+  border-left: 2px solid #37413F;
+  padding-left: 1.25em;
+  color: #37413F;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.4em;
+  text-transform: uppercase;
+}
+
+#alt-maps A:hover, #alt-maps A:active { color: #FFFFFF; }
+
+#alt-maps A:first-of-type { border-left: 0; padding-left: 0; }
+
+#about-map-image {
+  background: url(images/about-map.jpg) no-repeat center;
+  background-size: cover;
+}
+
+#about-map-image:before {
+  content: "";
+  display: block;
+  padding-top: 32.6875%;
+}
+
+#content2.plants-tab A:link, #content2.plants-tab A:visited { color: #F7B747; }
+#content2.plants-tab A:hover, #content2.plants-tab A:active { color: #FFFFFF; }
+
+#plants-section2 > DIV.has-image { width: 41vw; }
+
+#snake {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+#plants-section2 A.pdf {
+  display: inline-block;
+  margin: 0.5em 0;
+  font-family: 'Rokkitt', serif;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+#plants-section2 A.pdf:before {
+  display: inline-block;
+  margin-right: 0.5em;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  line-height: 1em;
+  content: "\f1c1";
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+
+#plants-section2 A.pdf:after {
+  content: "\00bb";
+  margin-left: 0.25em;
+}
+
+#get-involved {
+  background-image: url(images/get-involved.png), url(images/camo.jpg);
+  background-repeat: no-repeat, no-repeat;
+  background-position: bottom center, top center;
+  background-size: auto, cover;
+  padding-bottom: 430px;
+}
+
+#get-involved H3 {
+  margin: 1em 0 0.75em;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#get-involved-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.get-involved-option {
+  margin: 0 9px 18px;
+  width: 275px;
+  box-sizing: border-box;
+  padding: 31px 28px 100px;
+  background: rgba(26,23,32,0.3);
+  text-align: center;
+  position: relative;
+}
+
+.get-involved-option H4 {
+  margin: 0 0 0.5em;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+}
+
+.get-involved-option A:link, .get-involved-option A:visited {
+  position: absolute;
+  bottom: 31px;
+  left: 28px;
+  width: 219px;
+  border: 3px solid #F7B747;
+  border-radius: 5px;
+  padding: 0.7em 0 0.6em;
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.get-involved-option A:hover, .get-involved-option A:active {
+  border-color: #E48D36;
+  color: #E48D36;
 }
 
 #events-calendar {
@@ -1228,6 +1393,137 @@ A.button:hover, A.button:active {
   background-color: #FFFFFF !important;
 }
 
+#contact {
+  background: url(images/camo.jpg) top center no-repeat;
+  background-size: cover;
+  color: #FFFFFF;
+  letter-spacing: 0.1em;
+  padding: 2.5em 0 7em;
+}
+
+#contact A:link, #contact A:visited { color: #F7B747; }
+#contact A:hover, #contact A:active { color: #FFFFFF; }
+
+#contact H2 {
+  margin: 0;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+}
+
+#contact-form { margin-top: 1.5em; width: 76%; }
+
+LABEL {
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1em;
+}
+
+INPUT[type="text"],
+INPUT[type="email"],
+INPUT[type="tel"],
+TEXTAREA {
+  margin: 0.4em 0 2em;
+  outline: 0;
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+  background: transparent;
+  color: #FFFFFF;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1em;
+  padding: 0.6em 0.6em;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+TEXTAREA { height: 140px; padding: 0.75em 0.6em; }
+
+INPUT.alert { border-color: #FF6600; }
+INPUT.alert::-webkit-input-placeholder { color: #FF6600; }
+INPUT.alert:-moz-placeholder { color: #FF6600; }
+INPUT.alert::-moz-placeholder { color: #FF6600; }
+INPUT.alert:-ms-input-placeholder { color: #FF6600; }
+INPUT.alert:focus::-webkit-input-placeholder { color: transparent; }
+INPUT.alert:focus:-moz-placeholder { color: transparent; }
+INPUT.alert:focus::-moz-placeholder { color: transparent; }
+INPUT.alert:focus:-ms-input-placeholder { color: transparent; }
+
+INPUT[type="submit"] {
+  display: inline-block;
+  margin-top: 1em;
+  outline: 0;
+  border: 7px solid #F7B747;
+  border-radius: 5px;
+  width: auto;
+  box-sizing: border-box;
+  padding: 0.5em 1.5em 0.4em;
+  background: transparent;
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-appearance: none;
+  transition: all 0.2s;
+  width: 50%;
+}
+
+INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
+
+.two-col {
+  display: flex;
+  justify-content: space-between;
+}
+
+.two-col LABEL { width: 48%; }
+
+#contact-visit {
+  background: #F7B747 url(images/grid.png);
+  background-size: auto;
+  color: #FFFFFF;
+  letter-spacing: 0.1em;
+}
+
+#contact-visit .site-width { padding: 3.5em 0 3em; box-sizing: border-box; }
+
+#contact-visit .site-width.has-image { position: relative; padding-left: 355px; }
+
+#contact-visit IMG {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-22%);
+}
+
+#contact-visit P { margin: 0; }
+
+#contact-visit H2 {
+  margin: 0 0 0.35em;
+  color: #292F2F;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+}
+
+#contact-visit A:link, #contact-visit A:visited { color: #292F2F; }
+#contact-visit A:hover, #contact-visit A:active { color: #FFFFFF; }
+
+#contact-visit A.button:link, #contact-visit A.button:visited { border-color: #292F2F; margin: 1.75em 0 1.5em; }
+#contact-visit A.button:hover, #contact-visit A.button:active { border-color: #FFFFFF; }
+
 
 
 
@@ -1249,6 +1545,10 @@ A.button:hover, A.button:active {
   #home-intro { background-size: cover; }
 }
 
+@media only screen and (max-width: 1225px) {
+  #about-section2.has-image IMG { transform: none; }
+}
+
 @media only screen and (max-width: 1140px) {
   .site-width { width: 96%; }
 
@@ -1256,20 +1556,19 @@ A.button:hover, A.button:active {
 
   #main-header NAV UL LI UL { padding-right: 2%; }
 
-  #footer { font-size: 1.45vw; }
-
-  #home-plants-animals .site-width { padding: 25vw 0 4vw; }
-
   #home-plants-animals .site-width > DIV { width: 58%; padding-left: 0; }
 
   #home-map-image { width: 64%; }
 
-  #tab-about + LABEL, #tab-meet + LABEL { left: 2%; }
-  #tab-meet + LABEL { left: calc(2% + 275px); }
+  #tab1 + LABEL, #tab2 + LABEL { left: 2%; }
+  #tab2 + LABEL { left: calc(2% + 275px); }
 
-  #why-we-exist, #what-we-do { padding: 115px 2% 55px; }
+  #about-section1, #about-section2,
+  #plants-section1, #plants-section2,
+  #get-involved { padding-left: 2%; padding-right: 2%; }
 
-  #why-we-exist H2, #what-we-do H2, #sub-tabs H2 { left: 2%; width: 98%; }
+  #about-section1 H2, #about-section2 H2, #sub-tabs H2,
+  #plants-section1 H2, #plants-section2 H2, #get-involved H2 { left: 2%; width: 98%; }
 
   #sub-tabs { padding: 115px 0 55px 2%; }
   
@@ -1289,6 +1588,12 @@ A.button:hover, A.button:active {
   }
 
   #cal-grid-footer > DIV SPAN { width: 2.19vw; height: 2.19vw; }
+
+  #about-section2.has-image IMG { right: 0; }
+
+  #plants-section2 > DIV.has-image { width: 48vw; }
+
+  #snake { width: 60%; height: auto; }
 }
 
 @media only screen and (max-width: 1100px) {
@@ -1304,11 +1609,17 @@ A.button:hover, A.button:active {
 }
 
 @media only screen and (max-width: 1000px) {
-  #main-header #logo, #footer-logo { margin-left: 0; }
+  #main-header #logo { margin-left: 0; }
 
   #bird { width: 42vw; }
 
+  #footer { font-size: 1.45vw; }
+  #footer-logo IMG { width: 15vw; }
+
   #workshops .site-width { width: 96%; }
+  
+  #about-section2.has-image { padding-right: 33vw; }
+  #about-section2.has-image IMG { width: 33vw; height: auto; }
 }
 
 @media only screen and (max-width: 950px) {
@@ -1353,20 +1664,12 @@ A.button:hover, A.button:active {
   }
 
   #main-header NAV UL LI UL LI A { padding: 0; }
-
-  #footer { font-size: 17px; }
-
-  #footer .site-width { flex-wrap: wrap; padding-left: 16vw; box-sizing: border-box; }
-
-  #footer-logo { padding: 6.75vw 1.9vw 2.65vw; }
-
-  #footer-logo IMG { width: 16vw; }
-
-  #footer NAV { margin-left: 4em; min-width: 170px; }
 }
 
 @media only screen and (max-width: 900px) {
   #home-support .site-width { width: 96%; }
+
+  #contact-form { width: 100%; }
 }
 
 @media only screen and (max-width: 800px) {
@@ -1387,15 +1690,26 @@ A.button:hover, A.button:active {
   #home-intro .site-width > DIV { padding-left: 0; }
 
   #home-intro .button { margin: 0 1em 1em 0; }
+  
+  #footer { font-size: 2.2vw; }
+  #footer .site-width { flex-wrap: wrap; padding-left: 33%; box-sizing: border-box; }
+  #footer-logo IMG { width: 30vw; }
+  
+  #contact-visit .site-width.has-image { padding-left: 0; padding-bottom: 450px; }
+  #contact-visit IMG { left: 50%; transform: translateX(-50%); max-width: 100%; height: auto; }
+  
+  #plants-section2 { padding-bottom: 1px; }
+  #plants-section2 > DIV.has-image { width: 100%; }
+  #snake { width: 50%; }
 }
 
 @media only screen and (max-width: 750px) {
   #home-intro .site-width H1 { font-size: 14vw; }
   
   #plant { width: 80vw; }
-  #bird { width: 47vw; }
+  #bird { width: 70vw; }
 
-  #home-plants-animals .site-width { padding: 49vw 0 31vw; }
+  #home-plants-animals .site-width { padding: 32vw 0 31vw; }
 
   #home-plants-animals .site-width > DIV { width: 100%; }
   
@@ -1443,6 +1757,14 @@ A.button:hover, A.button:active {
   #cal-grid TR TD:last-of-type SPAN .popup:after { left: 85%; }
 
   #cal-grid-footer > DIV SPAN { width: 3.5vw; height: 3.5vw; }
+  
+  #about-section2.has-image { padding-right: 0; padding-bottom: 90vw; }
+  #about-section2.has-image IMG {
+    right: 50%;
+    transform: translateX(50%);
+    width: auto;
+    max-width: 100%;
+  }
 }
 
 @media only screen and (max-width: 700px) {
@@ -1452,39 +1774,42 @@ A.button:hover, A.button:active {
 
   #main-header NAV.menu-main-menu-container { top: 105px; }
 
-  #footer NAV { margin-left: 3em; }
-
   #welcome { margin-top: 200px; }
 
   #bird { width: 80vw; }
 
-  #home-plants-animals .site-width { padding: 49vw 0 70vw; }
+  #home-plants-animals .site-width { padding: 35vw 0 50vw; }
 }
 
 @media only screen and (max-width: 600px) {
-  #footer-logo { padding: 9vw 2.5vw 3.5vw; }
-
-  #footer-logo IMG { width: 30vw; }
-
-  #footer .site-width { flex-direction: column; padding: 1.5em 0 1.8em; }
-
-  #footer { font-size: 4vw; }
-
   #home-intro { top: -60vw; margin-bottom: -60vw; }
 
   #plant { width: 92vw; }
 
-  #home-plants-animals .site-width { padding: 56vw 0 70vw; }
+  #home-plants-animals .site-width { padding: 40vw 0 55vw; }
 
-  #tab-about + LABEL, #tab-meet + LABEL { left: 2%; width: 48.1%; }
-  #tab-meet + LABEL { left: auto; right: 2%; }
+  #tab1 + LABEL, #tab2 + LABEL { left: 2%; width: 48.1%; }
+  #tab2 + LABEL { left: auto; right: 2%; }
 
   #page-header.single-event .site-width { padding-right: 0; }
   #page-header.single-event .button { display: none; }
+  
+  .two-col { flex-direction: column; }
+  .two-col LABEL { width: 100%; }
+
+  INPUT[type="submit"] { width: 100%; }
+  
+  #content2.plants-tab { padding-bottom: 50vw; }
+  #snake { width: auto; max-width: 100%; }
 }
 
 @media only screen and (max-width: 480px) {
   #main-header NAV UL { font-size: 7vw; }
 
   #home-intro { top: -70vw; margin-bottom: -70vw; }
+  
+  #footer { font-size: 3.5vw; }
+  #footer-logo IMG { width: 38vw; }
+
+  #contact-visit .site-width.has-image { padding-bottom: 85vw; }
 }

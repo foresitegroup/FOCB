@@ -9,28 +9,28 @@ get_header();
 </div>
 
 <div id="tabs">
-  <input id="tab-about" type="radio" name="tabs" checked>
-  <label for="tab-about">The Friend's Mission</label>
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">The Friend's Mission</label>
 
-  <input id="tab-meet" type="radio" name="tabs">
-  <label for="tab-meet">Meet the Friends</label>
+  <input id="tab2" type="radio" name="tabs">
+  <label for="tab2">Meet the Friends</label>
 
-  <div id="content-about">
-    <div id="why-we-exist">
-      <h2>Why We Exist</h2>
+  <div id="content1">
+    <div id="about-section1">
+      <h2>Our Mission</h2>
       <?php
       $about = get_posts(array('name' => 'the-friends-mission', 'post_type' => 'page'));
       echo apply_filters('the_content', $about[0]->post_content);
       ?>
     </div>
 
-    <div id="what-we-do">
-      <h2>What We Do</h2>
-      <?php echo apply_filters('the_content', $about[0]->what_we_do); ?>
+    <div id="about-section2">
+      <h2>Our Committees</h2>
+      <?php echo apply_filters('the_content', $about[0]->tfm_section2); ?>
     </div>
   </div>
 
-  <div id="content-meet">
+  <div id="content2">
     <div id="sub-tabs">
       <h2>Board of Directors</h2>
 
@@ -90,7 +90,7 @@ get_header();
         <?php echo $meet[0]->mtf_friends; ?>
       </div>
     </div>
-  </div> <!-- #content-meet -->
+  </div> <!-- #content2 -->
 </div> <!-- #tabs -->
 
 <?php get_footer(); ?>
