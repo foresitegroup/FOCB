@@ -18,14 +18,8 @@ get_header();
   </div>
 </div> <!-- #event-registration -->
 
-<div id="workshops">
-  <div class="site-width">
-    <h2>Natural History Workshops</h2>
-    
-    The UWM Field Station located at the Cedarburg Bog offers a series of natural history workshops. These classes offer a unique opportunity to explore focused topics in natural history under the guidance of noted authorities. Hands-on field and laboratory investigations teach ecology, evolution, use of taxonomic keys, and techniques.<br>
+<?php
+echo do_shortcode('[events_prefooter]');
 
-    <a href="#" class="button">Learn More &amp; Register Here</a>
-  </div>
-</div>
-
-<?php get_footer(); ?>
+get_footer();
+?>
