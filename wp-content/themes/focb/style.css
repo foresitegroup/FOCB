@@ -635,6 +635,8 @@ A.button:hover, A.button:active {
 #about-section2 {
   background: #F7B747 url(images/grid.png);
   background-size: auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 #plants-section1 { padding-bottom: 0; }
@@ -706,15 +708,6 @@ A.button:hover, A.button:active {
   font-size: 16px;
   line-height: 1em;
   text-transform: uppercase;
-}
-
-#about-section2.has-image { padding-right: 40%; }
-
-#about-section2.has-image IMG {
-  position: absolute;
-  bottom: 0;
-  right: calc((100% - 1100px) / 2);
-  transform: translateX(12%);
 }
 
 #content2 {
@@ -814,7 +807,9 @@ A.button:hover, A.button:active {
   height: 185px;
 }
 
-#alt-maps { display: flex; align-items: center; color: #37413F; }
+#about-section2 #visiting-text { width: 38%; }
+
+#alt-maps { margin-top: 3em; color: #37413F; }
 
 #alt-maps H4 {
   margin: 0;
@@ -840,18 +835,58 @@ A.button:hover, A.button:active {
 
 #alt-maps A:hover, #alt-maps A:active { color: #FFFFFF; }
 
-#alt-maps A:first-of-type { border-left: 0; padding-left: 0; }
+#alt-maps A:first-of-type { margin-left: 0; border-left: 0; padding-left: 0; }
 
-#about-map-image {
-  background: url(images/about-map.jpg) no-repeat center;
-  background-size: cover;
+#about-section2 #visiting-map { width: 54%; text-align: right; }
+
+#about-section2 #visiting-map IMG {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 0 24px 0 rgba(0,0,0,0.59);
 }
 
-#about-map-image:before {
-  content: "";
-  display: block;
-  padding-top: 32.6875%;
+#about-section2 #visiting-map A:link, #about-section2 #visiting-map A:visited {
+  display: inline-block;
+  margin-top: 1em;
+  color: #37413F;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.4em;
+  text-transform: uppercase;
+  outline: 0;
 }
+
+#about-section2 #visiting-map A:hover, #about-section2 #visiting-map A:active { color: #FFFFFF; }
+
+#about-section2 #visiting-map A:before {
+  display: inline-block;
+  margin-right: 0.5em;
+  content: "\f00e";
+  font-family: "Font Awesome 5 Free";
+  font-size: 1.5em;
+  line-height: 1em;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.fancybox-bg { background: #37403F !important; }
+
+#public-access {
+  padding: 1.5em 0;
+  background: #37403F;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#public-access DIV { color: #FFFFFF; }
 
 #content2.plants-tab A:link, #content2.plants-tab A:visited { color: #F7B747; }
 #content2.plants-tab A:hover, #content2.plants-tab A:active { color: #FFFFFF; }
@@ -1006,6 +1041,8 @@ A.button:hover, A.button:active {
   font-weight: 400;
   font-size: 12px;
   line-height: 1.2em;
+  scrollbar-width: thin;
+  scrollbar-color: #F7B747 #37403F;
 }
 
 #event-list::-webkit-scrollbar { width: 6px; }
@@ -1524,10 +1561,18 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
 #contact-visit A.button:link, #contact-visit A.button:visited { border-color: #292F2F; margin: 1.75em 0 1.5em; }
 #contact-visit A.button:hover, #contact-visit A.button:active { border-color: #FFFFFF; }
 
+#contact-map {
+  position: relative;
+  padding-top: 32.6875%;
+}
 
-
-
-
+#contact-map IFRAME {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
 
 
 
@@ -1543,10 +1588,6 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
 
 @media only screen and (min-width: 1600px) {
   #home-intro { background-size: cover; }
-}
-
-@media only screen and (max-width: 1225px) {
-  #about-section2.has-image IMG { transform: none; }
 }
 
 @media only screen and (max-width: 1140px) {
@@ -1589,8 +1630,6 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
 
   #cal-grid-footer > DIV SPAN { width: 2.19vw; height: 2.19vw; }
 
-  #about-section2.has-image IMG { right: 0; }
-
   #plants-section2 > DIV.has-image { width: 48vw; }
 
   #snake { width: 60%; height: auto; }
@@ -1617,9 +1656,6 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
   #footer-logo IMG { width: 15vw; }
 
   #workshops .site-width { width: 96%; }
-  
-  #about-section2.has-image { padding-right: 33vw; }
-  #about-section2.has-image IMG { width: 33vw; height: auto; }
 }
 
 @media only screen and (max-width: 950px) {
@@ -1669,7 +1705,14 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
 @media only screen and (max-width: 900px) {
   #home-support .site-width { width: 96%; }
 
+  #about-section2 #visiting-text { width: 42%; }
+
   #contact-form { width: 100%; }
+}
+
+@media only screen and (max-width: 830px) {
+  #public-access { padding: 1.5em 4%; }
+  #public-access DIV { display: inline; }
 }
 
 @media only screen and (max-width: 800px) {
@@ -1722,6 +1765,10 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
   #home-map-image:before { content: ""; display: block; padding-top: 60%; }
 
   #home-map A.button:link, #home-map A.button:visited { font-size: 16px; }
+  
+  #about-section2 { flex-direction: column; }
+  #about-section2 #visiting-text { width: 100%; margin-bottom: 4em; }
+  #about-section2 #visiting-map { width: 100%; }
 
   #events-calendar:before { display: none; }
 
@@ -1757,14 +1804,6 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
   #cal-grid TR TD:last-of-type SPAN .popup:after { left: 85%; }
 
   #cal-grid-footer > DIV SPAN { width: 3.5vw; height: 3.5vw; }
-  
-  #about-section2.has-image { padding-right: 0; padding-bottom: 90vw; }
-  #about-section2.has-image IMG {
-    right: 50%;
-    transform: translateX(50%);
-    width: auto;
-    max-width: 100%;
-  }
 }
 
 @media only screen and (max-width: 700px) {

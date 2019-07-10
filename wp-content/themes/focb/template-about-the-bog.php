@@ -23,22 +23,33 @@ get_header();
       ?>
     </div>
 
-    <div id="about-section2"<?php if (has_post_thumbnail()) echo ' class="has-image"'; ?>>
-      <?php
-      echo apply_filters('the_content', $about[0]->atb_section2);
+    <div id="about-section2">
+      <div id="visiting-text">
+        <?php
+        echo apply_filters('the_content', $about[0]->atb_section2);
 
-      if ($about[0]->atb_altmaps != "") {
-        echo '<div id="alt-maps">';
-          echo '<h4>Alternate Maps:</h4>';
-          echo $about[0]->atb_altmaps;
-        echo '</div>';
-      }
+        if ($about[0]->atb_altmaps != "") {
+          echo '<div id="alt-maps">';
+            echo '<h4>Download Maps</h4>';
+            echo $about[0]->atb_altmaps;
+          echo '</div>';
+        }
+        ?>
+      </div>
 
-      if (has_post_thumbnail()) echo '<img src="'.get_the_post_thumbnail_url(get_the_ID(),'full').'" alt="">';
-      ?>
+      <div id="visiting-map">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/bog-aerial-map.jpg" alt="">
+
+        <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.css">
+        <script src="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.js"></script>
+
+        <a href="<?php echo get_template_directory_uri(); ?>/images/bog-aerial-map.jpg" data-fancybox>View Full Size</a>
+      </div>
     </div>
 
-    <div id="about-map-image"></div>
+    <div id="public-access">
+      Please note, public access to the bog is located at <div>parking lots at the north and south ends of the bog.</div> The UWM field station is <u>not</u> open for public visits.
+    </div>
   </div>
 
   <div id="content2" class="plants-tab">

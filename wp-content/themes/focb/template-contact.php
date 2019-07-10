@@ -60,10 +60,8 @@ get_header();
   </div> <!-- .site-width -->
 </div> <!-- #contact -->
 
-<div id="alert-modal" class="modal"><div></div></div>
-
-<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/inc/jquery.modal.css">
-<script src="<?php echo get_template_directory_uri(); ?>/inc/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.css">
+<script src="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function(){
@@ -94,8 +92,7 @@ get_header();
           processData: false,
           contentType: false,
           success: function(data){
-            $('#alert-modal > DIV').html(data);
-            if (data) $('#alert-modal').modal();
+            if (data) $.fancybox.open('<div id="alert-modal">'+data+'</div>');
             $(form).find('input[type="text"], input[type="email"], input[type="tel"], textarea').val('');
           }
         });
@@ -125,6 +122,12 @@ get_header();
   </div>
 </div>
 
-<div id="about-map-image"></div>
+<div id="public-access">
+  Please note, public access to the bog is located at <div>parking lots at the north and south ends of the bog.</div> The UWM field station is <u>not</u> open for public visits.
+</div>
+
+<div id="contact-map">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5799.327228172728!2d-88.01429686347832!3d43.3840572165508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8804ee0383622e35%3A0x123177376c94f269!2sCedarburg+Bog+State+Natural+Area!5e0!3m2!1sen!2sus!4v1562768922602!5m2!1sen!2sus" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>
 
 <?php get_footer(); ?>

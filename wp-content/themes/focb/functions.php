@@ -229,7 +229,7 @@ function about_the_bog_metabox() {
 
   if ($post->post_name == 'about-the-bog') {
     add_meta_box('atb_section2_mb', 'Visiting the Bog', 'atb_section2_mb_content', 'page', 'normal');
-    add_meta_box('atb_altmaps_mb', 'Alternate Maps', 'atb_altmaps_mb_content', 'page', 'normal');
+    add_meta_box('atb_altmaps_mb', 'Download Maps', 'atb_altmaps_mb_content', 'page', 'normal');
   }
 }
 
