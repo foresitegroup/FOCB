@@ -687,4 +687,262 @@ function display_events_prefooter() {
   <?php
   return ob_get_clean();
 }
+
+
+/*
+*  Gallery
+*/
+add_action('init', 'gallery');
+function gallery() {
+  register_post_type('gallery', array(
+      'labels' => array(
+        'name' => 'Gallery',
+        'singular_name' => 'Image',
+        'add_new_item' => 'Add New Image',
+        'edit_item' => 'Edit Image',
+        'search_items' => 'Search Images',
+        'not_found' => 'No Images found'
+      ),
+      'show_ui' => true,
+      'menu_position' => 53,
+      'menu_icon' => 'dashicons-camera-alt',
+      'supports' => array('thumbnail'),
+      'taxonomies' => array('gallery-category'),
+      'has_archive' => true,
+      'exclude_from_search' => false,
+      'publicly_queryable' => true,
+      'show_in_nav_menus' => true
+  ));
+}
+
+add_action('init', 'gallery_create_taxonomy');
+function gallery_create_taxonomy() {
+  register_taxonomy('gallery-category', 'gallery', array('labels' => array('name' => 'Gallery Categories', 'singular_name' => 'Gallery Category'), 'hierarchical' => true));
+}
+
+add_action('do_meta_boxes', 'gallery_image_box');
+function gallery_image_box() {
+  remove_meta_box('postimagediv', 'gallery', 'side');
+  add_meta_box('postimagediv', "Featured Image", 'post_thumbnail_meta_box', 'gallery', 'normal', 'high');
+
+  add_meta_box('gallery_mb', 'Caption', 'gallery_mb_content', 'gallery', 'normal');
+
+  add_meta_box('gallery_mb_footer', 'Make This a Footer Image?', 'gallery_mb_footer_content', 'gallery', 'side');
+}
+
+function gallery_mb_content($post) {
+  echo '<input type="text" name="gallery_caption" value="';
+  if ($post->gallery_caption != "") echo $post->gallery_caption;
+  echo '" id="gallery_caption">';
+}
+
+function gallery_mb_footer_content($post) {
+  echo '<select name="gallery_footer">
+    <option value="">Select Position...</option>
+    <option value="Left"';
+    if ($post->gallery_footer == "Left") echo " selected";
+    echo '>Left</option>
+    <option value="Middle"';
+    if ($post->gallery_footer == "Middle") echo " selected";
+    echo '>Middle</option>
+    <option value="Right"';
+    if ($post->gallery_footer == "Right") echo " selected";
+    echo '>Right</option>
+  </select><br><br>';
+
+  echo '<em style="font-size: 80%;">Note: if you set this, it will replace the current footer image (in whichever position you set).</em>';
+}
+
+add_filter('wp_insert_post_data', 'set_gallery_title', '99', 1 );
+function set_gallery_title($data) {
+  if($data['post_type'] == 'gallery') {
+    $gallery_timestamp = (empty($data['post_date'])) ? time() : strtotime($data['post_date']);
+    $gallery_title = "gallery_" . $gallery_timestamp;
+    $data['post_title'] =  $gallery_title;
+    $data['post_name'] = $gallery_title;
+  }
+  return $data;
+}
+
+add_action('save_post', 'gallery_save');
+function gallery_save($post_id) {
+  if (get_post_type() != 'gallery') return;
+
+  if (!empty($_POST['gallery_caption'])) {
+    update_post_meta($post_id, 'gallery_caption', $_POST['gallery_caption']);
+  } else {
+    delete_post_meta($post_id, 'gallery_caption');
+  }
+
+  if (!empty($_POST['gallery_footer'])) {
+    global $wpdb;
+    $wpdb->query("DELETE FROM $wpdb->postmeta WHERE meta_value = '" . $_POST['gallery_footer'] . "'");
+
+    update_post_meta($post_id, 'gallery_footer', $_POST['gallery_footer']);
+  } else {
+    delete_post_meta($post_id, 'gallery_footer');
+  }
+}
+
+add_action('admin_head', 'gallery_css');
+function gallery_css() {
+  if (get_post_type() == 'gallery') {
+    echo '<style>
+      #gallery_mb #gallery_caption { padding: 3px 8px; font-size: 1.7em; line-height: 100%; height: 1.7em; width: 100%; outline: 0; }
+      .row-title { display: none; }
+      .row-actions { position: static; }
+    </style>';
+  }
+}
+
+add_action('admin_notices', 'gallery_admin_notice');
+function gallery_admin_notice() {
+  $gallery_notice = "";
+
+  global $wpdb;
+
+  $gleft = $wpdb->get_row("SELECT * FROM $wpdb->postmeta WHERE meta_value = 'Left'");
+  if ($gleft == null) $gallery_notice .= "<p>The left position site footer image has not been set. A random gallery image will used in its place.</p>";
+
+  $gmiddle = $wpdb->get_row("SELECT * FROM $wpdb->postmeta WHERE meta_value = 'Middle'");
+  if ($gmiddle == null) $gallery_notice .= "<p>The middle position site footer image has not been set. A random gallery image will used in its place.</p>";
+
+  $gright = $wpdb->get_row("SELECT * FROM $wpdb->postmeta WHERE meta_value = 'Right'");
+  if ($gright == null) $gallery_notice .= "<p>The right position site footer image has not been set. A random gallery image will used in its place.</p>";
+
+  global $pagenow;
+
+  if ($pagenow == 'edit.php' && get_post_type() == 'gallery' && $gallery_notice != "")
+    echo '<div class="notice notice-warning">'.$gallery_notice.'</div>';
+}
+
+add_filter('bulk_actions-edit-gallery','gallery_remove_bulk_actions');
+function gallery_remove_bulk_actions($actions) {
+  unset( $actions['edit'] );
+  return $actions;
+}
+
+add_filter('post_row_actions', 'gallery_row_actions', 10, 2);
+function gallery_row_actions($actions, $post) {
+  if (get_post_type() == 'gallery') {
+    unset( $actions['inline hide-if-no-js'] ); // Removes the "Quick Edit" action.
+  }
+
+  return $actions;
+}
+
+add_action('admin_head', 'gallery_remove_date_filter');
+function gallery_remove_date_filter() {
+  if (get_post_type() == 'gallery') add_filter('months_dropdown_results', '__return_empty_array');
+}
+
+add_action('restrict_manage_posts', 'fg_filter_post_type_by_taxonomy');
+function fg_filter_post_type_by_taxonomy() {
+  global $typenow;
+  $post_type = 'gallery'; // change to your post type
+  $taxonomy  = 'gallery-category'; // change to your taxonomy
+  if ($typenow == $post_type) {
+    $selected      = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+    $info_taxonomy = get_taxonomy($taxonomy);
+    wp_dropdown_categories(array(
+      'show_option_all' => __("Show All Categories"),
+      'taxonomy'        => $taxonomy,
+      'name'            => $taxonomy,
+      'orderby'         => 'name',
+      'selected'        => $selected,
+      'show_count'      => true,
+      'hide_empty'      => true,
+    ));
+  };
+}
+
+add_filter('parse_query', 'fg_convert_id_to_term_in_query');
+function fg_convert_id_to_term_in_query($query) {
+  global $pagenow;
+  $post_type = 'gallery'; // change to your post type
+  $taxonomy  = 'gallery-category'; // change to your taxonomy
+  $q_vars    = &$query->query_vars;
+  if ($pagenow == 'edit.php' && isset($q_vars['post_type']) && $q_vars['post_type'] == $post_type && isset($q_vars[$taxonomy]) && is_numeric($q_vars[$taxonomy]) && $q_vars[$taxonomy] != 0 ) {
+    $term = get_term_by('id', $q_vars[$taxonomy], $taxonomy);
+    $q_vars[$taxonomy] = $term->slug;
+  }
+}
+
+add_filter('manage_gallery_posts_columns', 'set_custom_edit_gallery_columns');
+function set_custom_edit_gallery_columns($columns) {
+  unset($columns['title']);
+  unset($columns['date']);
+
+  $columns['title'] = "Edit Image";
+  $columns['gallery_image'] = "Image";
+  $columns['gallery_caption'] = "Caption";
+  $columns['gallery_category'] = "Category";
+  $columns['gallery_footer'] = "Footer";
+  $columns['date'] = "Date";
+
+  return $columns;
+}
+
+add_action('manage_gallery_posts_custom_column', 'custom_gallery_column', 10, 2);
+function custom_gallery_column($column, $post_id) {
+  switch ($column) {
+    case 'gallery_image':
+      echo get_the_post_thumbnail($post_id, array(100, 100));
+      break;
+    case 'gallery_caption':
+      echo get_post_meta($post_id, 'gallery_caption', true);
+      break;
+    case 'gallery_category':
+      $terms = get_the_terms($post_id, 'gallery-category');
+
+      if (!empty( $terms)) {
+        $out = array();
+
+        foreach ($terms as $term) {
+          $out[] = sprintf('<a href="%s">%s</a>',
+            esc_url(add_query_arg(array('post_type' => $post->post_type, 'gallery-category' => $term->slug), 'edit.php')),
+            esc_html(sanitize_term_field('name', $term->name, $term->term_id, 'gallery-category', 'display'))
+          );
+        }
+
+        echo join(', ', $out);
+      }
+      break;
+    case 'gallery_footer':
+      echo get_post_meta($post_id, 'gallery_footer', true);
+      break;
+  }
+}
+
+add_filter('manage_edit-gallery_sortable_columns', 'set_custom_gallery_sortable_columns');
+function set_custom_gallery_sortable_columns($columns) {
+  unset($columns['title']);
+  $columns['gallery_category'] = 'gallery_category';
+  return $columns;
+}
+
+add_filter('posts_clauses', 'sort_gallery_taxonomy_column', 10, 2);
+function sort_gallery_taxonomy_column($clauses, $wp_query){
+  global $wpdb;
+
+  if (isset($wp_query->query['orderby']) && $wp_query->query['orderby'] == 'gallery_category') {
+    $clauses['join'] .= <<<SQL
+    LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID={$wpdb->term_relationships}.object_id
+    LEFT OUTER JOIN {$wpdb->term_taxonomy} USING (term_taxonomy_id)
+    LEFT OUTER JOIN {$wpdb->terms} USING (term_id)
+    SQL;
+
+    $clauses['where'] .= "AND (taxonomy = 'gallery-category' OR taxonomy IS NULL)";
+    $clauses['groupby'] = "object_id";
+    $clauses['orderby'] = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY name ASC)";
+
+    if (strtoupper($wp_query->get('order')) == 'ASC') {
+      $clauses['orderby'] .= 'ASC';
+    } else {
+      $clauses['orderby'] .= 'DESC';
+    }
+  }
+
+  return $clauses;
+}
 ?>
