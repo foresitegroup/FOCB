@@ -23,7 +23,7 @@ get_header();
       ?>
     </div>
 
-    <div id="about-section2">
+    <div id="about-section2" class="visiting">
       <div id="visiting-text">
         <?php
         echo apply_filters('the_content', $about[0]->atb_section2);
