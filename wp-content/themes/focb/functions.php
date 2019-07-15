@@ -914,35 +914,36 @@ function custom_gallery_column($column, $post_id) {
   }
 }
 
-add_filter('manage_edit-gallery_sortable_columns', 'set_custom_gallery_sortable_columns');
-function set_custom_gallery_sortable_columns($columns) {
-  unset($columns['title']);
-  $columns['gallery_category'] = 'gallery_category';
-  return $columns;
-}
+// TO DO: This breaks entire site on live server for some reason
+// add_filter('manage_edit-gallery_sortable_columns', 'set_custom_gallery_sortable_columns');
+// function set_custom_gallery_sortable_columns($columns) {
+//   unset($columns['title']);
+//   $columns['gallery_category'] = 'gallery_category';
+//   return $columns;
+// }
 
-add_filter('posts_clauses', 'sort_gallery_taxonomy_column', 10, 2);
-function sort_gallery_taxonomy_column($clauses, $wp_query){
-  global $wpdb;
+// add_filter('posts_clauses', 'sort_gallery_taxonomy_column', 10, 2);
+// function sort_gallery_taxonomy_column($clauses, $wp_query){
+//   global $wpdb;
 
-  if (isset($wp_query->query['orderby']) && $wp_query->query['orderby'] == 'gallery_category') {
-    $clauses['join'] .= <<<SQL
-    LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID={$wpdb->term_relationships}.object_id
-    LEFT OUTER JOIN {$wpdb->term_taxonomy} USING (term_taxonomy_id)
-    LEFT OUTER JOIN {$wpdb->terms} USING (term_id)
-    SQL;
+//   if (isset($wp_query->query['orderby']) && $wp_query->query['orderby'] == 'gallery_category') {
+//     $clauses['join'] .= <<<SQL
+//     LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID={$wpdb->term_relationships}.object_id
+//     LEFT OUTER JOIN {$wpdb->term_taxonomy} USING (term_taxonomy_id)
+//     LEFT OUTER JOIN {$wpdb->terms} USING (term_id)
+//     SQL;
 
-    $clauses['where'] .= "AND (taxonomy = 'gallery-category' OR taxonomy IS NULL)";
-    $clauses['groupby'] = "object_id";
-    $clauses['orderby'] = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY name ASC)";
+//     $clauses['where'] .= " AND (taxonomy = 'gallery-category' OR taxonomy IS NULL)";
+//     $clauses['groupby'] = "object_id";
+//     $clauses['orderby'] = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY name ASC)";
 
-    if (strtoupper($wp_query->get('order')) == 'ASC') {
-      $clauses['orderby'] .= 'ASC';
-    } else {
-      $clauses['orderby'] .= 'DESC';
-    }
-  }
+//     if (strtoupper($wp_query->get('order')) == 'ASC') {
+//       $clauses['orderby'] .= 'ASC';
+//     } else {
+//       $clauses['orderby'] .= 'DESC';
+//     }
+//   }
 
-  return $clauses;
-}
+//   return $clauses;
+// }
 ?>

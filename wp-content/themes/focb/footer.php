@@ -33,7 +33,7 @@
       if ($gright == null) {
         $grightrand = new WP_Query($args);
         $grightrand->the_post();
-        $grightimg = get_the_post_thumbnail_url($grightrand['ID']);
+        $grightimg = get_the_post_thumbnail_url();
       } else {
         $grightimg = get_the_post_thumbnail_url($gright['post_id']);
       }
