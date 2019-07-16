@@ -590,6 +590,7 @@ A.button:hover, A.button:active {
 }
 
 #page-header H1 {
+  margin: 0 auto;
   font-family: 'Medula One', serif;
   font-weight: 400;
   font-size: 70px;
@@ -1688,10 +1689,120 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
 
 #gallery .pagination A { text-decoration: none; }
 
-#gallery .pagination A:hover, #gallery .pagination A.active { color: #F7B747; }
+#gallery .pagination A:hover, #gallery .pagination A:active { color: #F7B747; }
 
 #gallery .pagination .prev { position: absolute; left: 0; }
 #gallery .pagination .next { position: absolute; right: 0; }
+
+#page-header.blog-header.is-single { padding: 50px 0 20px; }
+
+#page-header.blog-header .blog-name, #page-header.blog-header .blog-date,
+#page-header.blog-header A { display: none; }
+
+#page-header.blog-header.is-single .blog-name,
+#page-header.blog-header.is-single .blog-date,
+#page-header.blog-header.is-single A {
+  display: block;
+  font-family: 'Rokkitt', serif;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+#page-header.blog-header.is-single .blog-name { color: #3C4644; }
+
+#page-header.blog-header.is-single H1 {
+  margin: 0 0 0.1em;
+  color: #FFFFFF;
+  font-size: 54px;
+  line-height: 0.85em;
+}
+
+#page-header.blog-header.is-single .blog-date { color: #3C4644; font-size: 24px; }
+
+#page-header.blog-header.is-single A { display: inline-block; margin-top: 0.6em; font-size: 18px; }
+
+#blog {
+  background: #37413F url(images/camo-fade.jpg) no-repeat center top;
+  color: #FFFFFF;
+  padding: 42px 0;
+  letter-spacing: 0.1em;
+}
+
+#blog H2 {
+  margin: 0 0 0.1em;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 342.85%;
+  line-height: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+#blog .blog-date {
+  margin: 0 0 1.5em;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 114.28%;
+  line-height: 1em;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+#blog .blog-permalink:link, #blog .blog-permalink:visited {
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 128.57%;
+  line-height: 1em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+#blog .blog-permalink:hover, #blog .blog-permalink:active { color: #FFFFFF; }
+
+#blog HR {
+  margin: 40px 0 43px;
+  border: 0;
+  border-radius: 2px;
+  height: 3px;
+  background: #F7B747;
+}
+
+#blog .pagination {
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 171.42%;
+  line-height: 1em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+#blog .pagination A:link, #blog .pagination A:visited { color: #F7B747; text-decoration: none; }
+#blog .pagination A:hover, #blog .pagination A:active { color: #FFFFFF; text-decoration: none; }
+
+#blog .pagination .current { color: #FFFFFF; }
+
+#blog .blog-content H1, #blog .blog-content H2, #blog .blog-content H3,
+#blog .blog-content H4, #blog .blog-content H5, #blog .blog-content H6 {
+  margin: 0 0 0.5em;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 214.28%;
+  line-height: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+#blog .blog-content H2 { font-size: 178.57%; }
+#blog .blog-content H3 { font-size: 142.85%; letter-spacing: 0.025em; }
+#blog .blog-content H4 { font-size: 107.14%; letter-spacing: 0.05em; }
+#blog .blog-content H5, #blog .blog-content H6 { font-size: 100%; letter-spacing: 0.05em; }
 
 
 

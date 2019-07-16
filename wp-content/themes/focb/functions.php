@@ -25,6 +25,12 @@ function my_oembed_filter($html, $url, $attr, $post_ID) {
 }
 
 
+// Custom excerpt
+function fg_excerpt($limit, $more = '') {
+  return wp_trim_words(get_the_content(), $limit, $more);
+}
+
+
 // Remove emojis (and other crud)
 add_action('init', 'disable_wp_emojicons');
 function disable_wp_emojicons() {
@@ -74,13 +80,13 @@ function meta_og() {
     $excerpt = implode(' ', $excerptwords) . $excerpt_more;
     ?>
 
-    <meta name="author" content="HW Woodwork">
+    <meta name="author" content="<?php bloginfo('name'); ?>">
     <meta name="description" content="<?php echo $excerpt; ?>">
     <meta property="og:title" content="<?php echo the_title(); ?>">
     <meta property="og:description" content="<?php echo $excerpt; ?>">
     <meta property="og:type" content="article">
     <meta property="og:url" content="<?php echo the_permalink(); ?>">
-    <meta property="og:site_name" content="HW Woodwork">
+    <meta property="og:site_name" content="<?php bloginfo('name'); ?>">
     <meta property="og:image" content="<?php echo $img_src[0]; ?>">
     <?php
   } else {
