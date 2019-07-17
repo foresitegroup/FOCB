@@ -25,9 +25,77 @@ function my_oembed_filter($html, $url, $attr, $post_ID) {
 }
 
 
+// Customize post gallery format
+add_filter('post_gallery', 'fg_post_gallery', 10, 2);
+function fg_post_gallery($output, $attr) {
+  wp_enqueue_style('fbstyle', get_template_directory_uri() . '/inc/jquery.fancybox.min.css', array(), filemtime(get_template_directory() . '/inc/jquery.fancybox.min.css'));
+  wp_enqueue_script('fbjquery', get_template_directory_uri() . '/inc/jquery.fancybox.min.js');
+
+  global $post;
+
+  if (isset($attr['orderby'])) {
+    $attr['orderby'] = sanitize_sql_orderby($attr['orderby']);
+    if (!$attr['orderby']) unset($attr['orderby']);
+  }
+
+  extract(shortcode_atts(array(
+    'order' => 'ASC',
+    'orderby' => 'menu_order ID',
+    'id' => $post->ID,
+    'itemtag' => 'dl',
+    'icontag' => 'dt',
+    'captiontag' => 'dd',
+    'columns' => 5,
+    'size' => 'thumbnail',
+    'include' => '',
+    'exclude' => ''
+  ), $attr));
+
+  $id = intval($id);
+  if ('RAND' == $order) $orderby = 'none';
+
+  if (!empty($include)) {
+    $include = preg_replace('/[^0-9,]+/', '', $include);
+    $_attachments = get_posts(array('include' => $include, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby));
+
+    $attachments = array();
+
+    foreach ($_attachments as $key => $val) {
+      $attachments[$val->ID] = $_attachments[$key];
+    }
+  }
+
+  if (empty($attachments)) return '';
+
+  // Here's your actual output, you may customize it to your need
+  $output = '<div class="single-post-gallery gallery-columns-' . $columns . '">'."\n";
+
+  // Now you loop through each attachment
+  foreach ($attachments as $id => $attachment) {
+    $img = wp_get_attachment_image_src($id, 'full');
+
+    $caption = (wp_get_attachment_caption($id)) ? ' data-caption="'.wp_get_attachment_caption($id).'"' : '';
+
+    $output .= '<a href="' . $img[0] . '" data-sb="sb' . $columns . '" style="background-image: url(' . $img[0] . ');" aria-label="' . basename($img[0]) . '" data-fancybox="gallery" '.$caption.'></a>'."\n";
+  }
+
+  $output .= "</div>\n";
+
+  return $output;
+}
+
+
+// ...and set default columns to 5
+add_filter('media_view_settings', 'fg_gallery_defaults');
+function fg_gallery_defaults($settings) {
+  $settings['galleryDefaults']['columns'] = 5;
+  return $settings;
+}
+
+
 // Custom excerpt
 function fg_excerpt($limit, $more = '') {
-  return wp_trim_words(get_the_content(), $limit, $more);
+  return wp_trim_words(strip_shortcodes(get_the_content()), $limit, $more);
 }
 
 
@@ -115,7 +183,8 @@ function register_my_menus() {
       'footer-col1' => __('Footer Menu Column 1'),
       'footer-col2' => __('Footer Menu Column 2'),
       'footer-col3' => __('Footer Menu Column 3'),
-      'footer-col4' => __('Footer Menu Column 4')
+      'footer-col4' => __('Footer Menu Column 4'),
+      'gi-tabs' => __('Get Involved Tabs')
     )
   );
 }
@@ -409,12 +478,12 @@ function events_after_title($post) {
         jQuery('#event_start_time, #event_end_time').timepicker({'scrollDefault': 'now', 'timeFormat': 'g:i A'});
       });
     </script>
-    
+
     <br>
 
     <input type="text" name="event_date" placeholder="Event Date" value="<?php if ($post->event_date != "") echo date("m/d/Y", $post->event_date); ?>" id="event_date" autocomplete="off"><br>
     <br>
-    
+
     <input type="text" name="event_start_time" placeholder="Start Time" value="<?php if ($post->event_date != "" && date("g:i A", $post->event_date) != "12:00 AM") echo date("g:i A", $post->event_date); ?>" id="event_start_time" autocomplete="off">
     &mdash;
     <input type="text" name="event_end_time" placeholder="End Time" value="<?php if ($post->event_end_time != "") echo date("g:i A", $post->event_end_time); ?>" id="event_end_time" autocomplete="off"><br>
@@ -561,7 +630,7 @@ function cal_grid_by_ajax_callback() {
   ?>
 
   <h2 data-year="<?php echo date("Y", $date); ?>"><?php echo date("F", $date); ?></h2>
-  
+
   <div id="cal-grid">
     <?php
     global $post;
@@ -626,7 +695,7 @@ function cal_grid_by_ajax_callback() {
                       echo "</div>\n";
                     }
                     ?>
-                    
+
                     <div class="buttons">
                       <a href="<?php echo $calevent[3]; ?>" class="button">More Info</a>
                       <a href="<?php echo home_url(); ?>/event-registration/" class="button">Register</a>
@@ -657,7 +726,7 @@ function cal_grid_by_ajax_callback() {
         <?php } ?>
       </tr>
     </table>
-    
+
     <div id="cal-grid-footer">
       <a href="<?php echo date("Ym", $lastmonth); ?>" class="calnav">Prev Month</a>
 
@@ -669,7 +738,7 @@ function cal_grid_by_ajax_callback() {
       <a href="<?php echo date("Ym", $nextmonth); ?>" class="calnav">Next Month</a>
     </div>
   </div>
-  
+
   <?php
   wp_die();
 }
@@ -683,7 +752,7 @@ function display_events_prefooter() {
   <div id="workshops">
     <div class="site-width">
       <h2>Natural History Workshops</h2>
-      
+
       The UWM Field Station located at the Cedarburg Bog offers a series of natural history workshops. These classes offer a unique opportunity to explore focused topics in natural history under the guidance of noted authorities. Hands-on field and laboratory investigations teach ecology, evolution, use of taxonomic keys, and techniques.<br>
 
       <a href="https://uwm.edu/field-station/workshops/" class="button">Learn More &amp; Register Here</a>
