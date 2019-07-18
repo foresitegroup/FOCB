@@ -9,7 +9,7 @@ get_header();
   <?php wp_nav_menu(array('theme_location'=>'gi-tabs','container'=>'nav')); ?>
 </div>
 
-<div id="get-involved-tabs">
+<div id="get-involved-tabs" class="<?php echo get_post_field('post_name', get_post()); ?>">
   <div class="site-width">
     <?php
     while (have_posts()) : the_post();

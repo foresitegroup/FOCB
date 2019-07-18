@@ -199,10 +199,17 @@ function disable_visual_editor($can) {
     $post->ID == 2 ||  // Home page
     $post->ID == 42 || // Home section - Plants & Animals
     $post->ID == 44 || // Home section - Support
-    $post->ID == 46    // Home section - Map
+    $post->ID == 46 || // Home section - Map
+    $post->post_name == 'donate'
   ) return false;
 
   return $can;
+}
+
+add_filter('the_content', 'specific_no_wpautop', 9);
+function specific_no_wpautop($content) {
+  if (is_page('donate')) remove_filter('the_content', 'wpautop');
+  return $content;
 }
 
 
