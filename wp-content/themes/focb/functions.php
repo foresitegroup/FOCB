@@ -777,23 +777,23 @@ function display_events_prefooter() {
 add_action('init', 'gallery');
 function gallery() {
   register_post_type('gallery', array(
-      'labels' => array(
-        'name' => 'Gallery',
-        'singular_name' => 'Image',
-        'add_new_item' => 'Add New Image',
-        'edit_item' => 'Edit Image',
-        'search_items' => 'Search Images',
-        'not_found' => 'No Images found'
-      ),
-      'show_ui' => true,
-      'menu_position' => 53,
-      'menu_icon' => 'dashicons-camera-alt',
-      'supports' => array('thumbnail'),
-      'taxonomies' => array('gallery-category'),
-      'has_archive' => true,
-      'exclude_from_search' => false,
-      'publicly_queryable' => true,
-      'show_in_nav_menus' => true
+    'labels' => array(
+      'name' => 'Gallery',
+      'singular_name' => 'Image',
+      'add_new_item' => 'Add New Image',
+      'edit_item' => 'Edit Image',
+      'search_items' => 'Search Images',
+      'not_found' => 'No Images found'
+    ),
+    'show_ui' => true,
+    'menu_position' => 53,
+    'menu_icon' => 'dashicons-camera-alt',
+    'supports' => array('thumbnail'),
+    'taxonomies' => array('gallery-category'),
+    'has_archive' => true,
+    'exclude_from_search' => false,
+    'publicly_queryable' => true,
+    'show_in_nav_menus' => true
   ));
 }
 
@@ -1028,4 +1028,201 @@ function custom_gallery_column($column, $post_id) {
 
 //   return $clauses;
 // }
+
+
+/*
+*  BogHaunter
+*/
+add_action('init', 'boghaunter');
+function boghaunter() {
+  register_post_type('boghaunter', array(
+    'labels' => array(
+      'name' => 'Bog Haunter Archive',
+      'singular_name' => 'Issue',
+      'add_new_item' => 'Add New Issue',
+      'edit_item' => 'Edit Issue',
+      'search_items' => 'Search Issues',
+      'not_found' => 'No Issues found'
+    ),
+    'show_ui' => true,
+    'menu_position' => 53,
+    'menu_icon' => 'dashicons-media-document',
+    'supports' => false,
+    'has_archive' => true,
+    'exclude_from_search' => false,
+    'publicly_queryable' => true,
+    'show_in_nav_menus' => true
+  ));
+}
+
+add_action('do_meta_boxes', 'boghaunter_box');
+function boghaunter_box() {
+  add_meta_box('boghaunter_mb', 'Bog Haunter Issue', 'boghaunter_mb_content', 'boghaunter', 'normal');
+}
+
+function boghaunter_mb_content($post) {
+  ?>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      jQuery('#post').submit(function() {
+        if (jQuery('#boghaunter_volume').val() == '') { alert("Volume REQUIRED"); jQuery('#boghaunter_volume').focus(); return false; }
+        if (jQuery('#boghaunter_number').val() == '') { alert("Number REQUIRED"); jQuery('#boghaunter_number').focus(); return false; }
+      });
+    });
+  </script>
+
+  <?php
+  if ($post->post_title != "") echo '<h2 id="bh_title">'.$post->post_title."</h2>";
+
+  echo '<input type="text" name="boghaunter_pdf" value="';
+  if ($post->boghaunter_pdf != "") echo $post->boghaunter_pdf;
+  echo '" placeholder="PDF" id="boghaunter_pdf">';
+
+  echo '<input type="button" id="boghaunter_pdf_button" class="button" value="Add/Edit PDF">';
+  ?>
+  <script>
+    function AddEditMedia($media_id) {
+      wp.media.editor.send.attachment = function(props, attachment) {
+        jQuery($media_id).val(attachment.url);
+      }
+      wp.media.editor.open();
+      return false;
+    }
+    jQuery('#boghaunter_pdf_button').click(function(){ AddEditMedia("#boghaunter_pdf");});
+  </script>
+  <?php
+
+  echo '<input type="number" name="boghaunter_volume" value="';
+  if ($post->boghaunter_volume != "") echo $post->boghaunter_volume;
+  echo '" placeholder="Volume" id="boghaunter_volume" autocomplete="off">';
+
+  echo '<input type="number" name="boghaunter_number" value="';
+  if ($post->boghaunter_number != "") echo $post->boghaunter_number;
+  echo '" placeholder="Number" id="boghaunter_number" autocomplete="off">';
+
+  echo '<input type="text" name="boghaunter_season" value="';
+  if ($post->boghaunter_season != "") echo $post->boghaunter_season;
+  echo '" placeholder=\'Season & Year (e.g. "Fall 2012")\' id="boghaunter_season" autocomplete="off">';
+
+  echo '<input type="text" name="boghaunter_featured" value="';
+  if ($post->boghaunter_featured != "") echo $post->boghaunter_featured;
+  echo '" placeholder="Featured Articles" id="boghaunter_featured" autocomplete="off">';
+}
+
+add_filter('wp_insert_post_data', 'set_boghaunter_title', '99', 1 );
+function set_boghaunter_title($data) {
+  if($data['post_type'] == 'boghaunter') {
+    $data['post_title'] =  "Bog Haunter Vol. ".$_POST['boghaunter_volume']." No. ".$_POST['boghaunter_number'];
+    $data['post_name'] = sanitize_title($data['post_title']);
+  }
+  return $data;
+}
+
+add_action('save_post', 'boghaunter_save');
+function boghaunter_save($post_id) {
+  if (get_post_type() != 'boghaunter') return;
+
+  if (!empty($_POST['boghaunter_pdf'])) {
+    update_post_meta($post_id, 'boghaunter_pdf', $_POST['boghaunter_pdf']);
+  } else {
+    delete_post_meta($post_id, 'boghaunter_pdf');
+  }
+
+  if (!empty($_POST['boghaunter_volume'])) {
+    update_post_meta($post_id, 'boghaunter_volume', $_POST['boghaunter_volume']);
+  } else {
+    delete_post_meta($post_id, 'boghaunter_volume');
+  }
+
+  if (!empty($_POST['boghaunter_number'])) {
+    update_post_meta($post_id, 'boghaunter_number', $_POST['boghaunter_number']);
+  } else {
+    delete_post_meta($post_id, 'boghaunter_number');
+  }
+
+  if (!empty($_POST['boghaunter_season'])) {
+    update_post_meta($post_id, 'boghaunter_season', $_POST['boghaunter_season']);
+  } else {
+    delete_post_meta($post_id, 'boghaunter_season');
+  }
+
+  if (!empty($_POST['boghaunter_featured'])) {
+    update_post_meta($post_id, 'boghaunter_featured', $_POST['boghaunter_featured']);
+  } else {
+    delete_post_meta($post_id, 'boghaunter_featured');
+  }
+}
+
+add_action('admin_head', 'boghaunter_css');
+function boghaunter_css() {
+  if (get_post_type() == 'boghaunter') {
+    wp_enqueue_media();
+
+    echo '<style>
+      #boghaunter_mb #bh_title { padding: 0 0 0.25em; font-weight: 700; }
+      #boghaunter_mb INPUT { margin: 0.5em 0; padding: 3px 8px; font-size: 1.2em; line-height: 100%; height: 1.7em; width: 100%; outline: 0; }
+      #boghaunter_mb INPUT#boghaunter_pdf { width: calc(100% - 115px - 0.75em); margin-right: 0.75em; }
+      #boghaunter_mb INPUT#boghaunter_pdf_button { width: 115px; }
+      #boghaunter_mb INPUT[type="number"] { width: 25%; margin-right: 2%; }
+      #boghaunter_mb INPUT#boghaunter_season { width: 46%; }
+    </style>';
+  }
+}
+
+add_filter('bulk_actions-edit-boghaunter','boghaunter_remove_bulk_actions');
+function boghaunter_remove_bulk_actions($actions) {
+  unset( $actions['edit'] );
+  return $actions;
+}
+
+add_filter('post_row_actions', 'boghaunter_row_actions', 10, 2);
+function boghaunter_row_actions($actions, $post) {
+  if (get_post_type() == 'boghaunter') {
+    unset( $actions['inline hide-if-no-js'] ); // Removes the "Quick Edit" action.
+  }
+
+  return $actions;
+}
+
+add_action('admin_head', 'boghaunter_remove_date_filter');
+function boghaunter_remove_date_filter() {
+  if (get_post_type() == 'boghaunter') add_filter('months_dropdown_results', '__return_empty_array');
+}
+
+add_action('pre_get_posts','boghaunter_default_order', 9);
+function boghaunter_default_order($query){
+  if ($query->get('post_type')=='boghaunter') {
+    $query->set('meta_query', array(
+      'boghaunter_volume' => array('key' => 'boghaunter_volume', 'type' => 'numeric'),
+      'boghaunter_number' => array('key' => 'boghaunter_number', 'type' => 'numeric')
+    ));
+    $query->set('orderby', array('boghaunter_volume' => 'DESC', 'boghaunter_number' => 'DESC')); 
+  }
+}
+
+add_filter('manage_edit-boghaunter_sortable_columns', 'set_custom_boghaunter_sortable_columns');
+function set_custom_boghaunter_sortable_columns($columns) {
+  unset($columns['title']);
+  return $columns;
+}
+
+add_filter('manage_boghaunter_posts_columns', 'set_custom_edit_boghaunter_columns');
+function set_custom_edit_boghaunter_columns($columns) {
+  unset($columns['date']);
+  $columns['boghaunter_season'] = "Season";
+  $columns['boghaunter_featured'] = "Featured Articles";
+  return $columns;
+}
+
+add_action('manage_boghaunter_posts_custom_column', 'custom_boghaunter_column', 10, 2);
+function custom_boghaunter_column($column, $post_id) {
+  switch ($column) {
+    case 'boghaunter_season':
+      echo get_post_meta($post_id, 'boghaunter_season', true);
+      break;
+    case 'boghaunter_featured':
+      echo get_post_meta($post_id, 'boghaunter_featured', true);
+      break;
+  }
+}
 ?>

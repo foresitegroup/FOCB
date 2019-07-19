@@ -600,6 +600,12 @@ A.button:hover, A.button:active {
 
 #page-header.about { padding-bottom: 72px; }
 
+#page {
+  background: #37413F url(images/camo-fade.jpg) no-repeat center top;
+  color: #FFFFFF;
+  padding: 55px 0;
+}
+
 /* PROGRAMS & EVENTS */
 #events-calendar {
   background: linear-gradient(to right, #37403F 50%, #696E6E 50%);
@@ -1972,6 +1978,78 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
 #gallery .pagination .prev { position: absolute; left: 0; }
 #gallery .pagination .next { position: absolute; right: 0; }
 
+/* BOG HAUNTER */
+#boghaunter {
+  background-color: #37413F;
+  background-image: url(images/boghaunter-background.png), url(images/camo-fade.jpg);
+  background-repeat: no-repeat, no-repeat;
+  background-position: right 0 top 0, center top;
+  background-size: contain, auto;
+  color: #FFFFFF;
+  padding: 55px 0;
+}
+
+#boghaunter A:hover, #boghaunter A.active { color: #F7B747; }
+
+#boghaunter-content { width: 49%; letter-spacing: 0.1em; }
+
+#boghaunter .bh_pdf {
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1em;
+}
+
+#boghaunter .bh_pdf:before {
+  display: inline-block;
+  margin-right: 0.5em;
+  content: "\f1c1";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  font-size: 1.2em;
+  line-height: 1em;
+  color: #F7B747;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+#boghaunter .bh_featured {
+  box-sizing: border-box;
+  padding: 0.25em 0 0 26px;
+  font-size: 12px;
+  line-height: 1.3em;
+}
+
+#boghaunter .bh_featured SPAN {
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 91.66%;
+  text-transform: uppercase;
+}
+
+#boghaunter .bh_spacer { height: 1.5em; }
+
+#boghaunter .pagination {
+  padding-top: 30px;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1em;
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+}
+
+#boghaunter .pagination A { text-decoration: none; }
+
+#boghaunter .pagination .current,
+#boghaunter .pagination A:hover, #boghaunter .pagination A:active { color: #F7B747; }
+
+#boghaunter .pagination .prev { position: absolute; left: 0; }
+#boghaunter .pagination .next { position: absolute; right: 0; }
+
 
 @media only screen and (min-width: 1920px) {
   BODY.home { background-size: contain; }
@@ -2031,6 +2109,8 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
   #plants-section2 > DIV.has-image { width: 48vw; }
 
   #snake { width: 60%; height: auto; }
+
+  #boghaunter { background-position: right -10% top 0, center top; }
 }
 
 @media only screen and (max-width: 1100px) {
@@ -2039,6 +2119,8 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
   #home-intro .site-width H1 { font-size: 9.4vw; }
 
   #home-intro .site-width > DIV { padding-left: 5%; }
+
+  #boghaunter { background-position: right -20% top 0, center top; }
 }
 
 @media only screen and (max-width: 1050px) {
@@ -2054,6 +2136,8 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
   #footer-logo IMG { width: 15vw; }
 
   #workshops .site-width { width: 96%; }
+
+  #boghaunter { background-position: right -100% top 0, center top; }
 }
 
 @media only screen and (max-width: 950px) {
@@ -2112,11 +2196,16 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
   #about-section2 #visiting-text { width: 42%; }
 
   #contact-form { width: 100%; }
+
+  #boghaunter { background-position: right -300% top 0, center top; }
 }
 
 @media only screen and (max-width: 830px) {
   #public-access { padding: 1.5em 4%; }
   #public-access DIV { display: inline; }
+
+  #boghaunter { background: #37413F url(images/camo-fade.jpg) no-repeat center top; }
+  #boghaunter-content { width: 100%; }
 }
 
 @media only screen and (max-width: 800px) {
