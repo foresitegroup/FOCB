@@ -2050,6 +2050,29 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
 #boghaunter .pagination .prev { position: absolute; left: 0; }
 #boghaunter .pagination .next { position: absolute; right: 0; }
 
+/* FAQ */
+#faq {
+  background: #37413F url(images/camo-fade.jpg) no-repeat center top;
+  color: #FFFFFF;
+  padding: 1px 0 100px;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+}
+
+#faq H3 {
+  margin: 1.25em 0 0.25em;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+#faq A:link, #faq A:visited { color: #F7B747; }
+#faq A:hover, #faq A:active { color: #FFFFFF; }
+
 
 @media only screen and (min-width: 1920px) {
   BODY.home { background-size: contain; }
