@@ -56,7 +56,7 @@
     </div>
   </div>
 
-  <div id="home-map-image"></div>
+  <!-- <div id="home-map-image"></div> -->
 </div>
 
 <?php get_footer(); ?>

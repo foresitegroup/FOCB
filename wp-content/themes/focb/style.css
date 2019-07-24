@@ -538,9 +538,9 @@ A.button:hover, A.button:active {
 }
 
 #home-map .site-width > DIV {
-  margin-left: 65%;
+/*  margin-left: 65%;
   width: 35%;
-  text-align: right;
+  text-align: right;*/
   letter-spacing: 0.1em;
 }
 
@@ -2276,7 +2276,7 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
 
   #home-plants-animals .site-width > DIV { width: 100%; }
   
-  #home-map { padding-bottom: 0; }
+  /*#home-map { padding-bottom: 0; }*/
 
   #home-map .site-width > DIV { margin-left: 0; width: 100%; text-align: left; }
 
