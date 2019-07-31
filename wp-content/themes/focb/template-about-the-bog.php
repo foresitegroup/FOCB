@@ -38,12 +38,12 @@ get_header();
       </div>
 
       <div id="visiting-map">
-        <img src="<?php echo get_template_directory_uri(); ?>/images/bog-aerial-map.jpg" alt="">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/bog-aerial-view-access-map.jpg" alt="">
 
         <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.css">
         <script src="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.js"></script>
 
-        <a href="<?php echo get_template_directory_uri(); ?>/images/bog-aerial-map.jpg" data-fancybox>View Full Size</a>
+        <a href="<?php echo get_template_directory_uri(); ?>/images/bog-aerial-view-access-map.jpg" data-fancybox>View Full Size</a>
       </div>
     </div>
 

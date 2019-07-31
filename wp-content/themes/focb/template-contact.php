@@ -128,6 +128,7 @@ get_header();
 
 <div id="contact-map">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23197.30872105301!2d-88.02742898754849!3d43.38405771736508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8804ee0383622e35%3A0x123177376c94f269!2sCedarburg+Bog+State+Natural+Area!5e0!3m2!1sen!2sus!4v1563895273448!5m2!1sen!2sus" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+  <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d23196.54489823878!2d-88.0133527550024!3d43.38605380642046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1564584281610!5m2!1sen!2sus" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
 </div>
 
 <?php get_footer(); ?>

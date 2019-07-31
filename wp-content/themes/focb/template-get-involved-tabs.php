@@ -14,6 +14,10 @@ get_header();
     <?php
     while (have_posts()) : the_post();
       the_content();
+
+      if (get_post_field('post_name', get_post()) == "become-a-friend") get_template_part('content', 'become-a-friend');
+
+      if (get_post_field('post_name', get_post()) == "donate") get_template_part('content', 'donate');
     endwhile;
     ?>
   </div>
