@@ -46,6 +46,89 @@ A:hover, A:active {
 
 P { margin: 0 0 1.5em; }
 
+LABEL {
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1em;
+}
+
+INPUT[type="text"],
+INPUT[type="email"],
+INPUT[type="tel"],
+TEXTAREA {
+  margin: 0.4em 0 2em;
+  outline: 0;
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+  background: transparent;
+  color: #FFFFFF;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1em;
+  padding: 0.6em 0.6em;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+TEXTAREA { height: 140px; padding: 0.75em 0.6em; }
+
+INPUT::-webkit-input-placeholder { color: rgba(255,255,255,0.5); font-family: 'Rokkitt', serif; font-weight: 700; font-size: 16px; line-height: 1em; letter-spacing: 0.1em; }
+INPUT:-moz-placeholder { color: rgba(255,255,255,0.5); font-family: 'Rokkitt', serif; font-weight: 700; font-size: 16px; line-height: 1em; letter-spacing: 0.1em; }
+INPUT::-moz-placeholder { color: rgba(255,255,255,0.5); font-family: 'Rokkitt', serif; font-weight: 700; font-size: 16px; line-height: 1em; letter-spacing: 0.1em; }
+INPUT:-ms-input-placeholder { color: rgba(255,255,255,0.5); font-family: 'Rokkitt', serif; font-weight: 700; font-size: 16px; line-height: 1em; letter-spacing: 0.1em; }
+INPUT:focus::-webkit-input-placeholder { color: transparent; }
+INPUT:focus:-moz-placeholder { color: transparent; }
+INPUT:focus::-moz-placeholder { color: transparent; }
+INPUT:focus:-ms-input-placeholder { color: transparent; }
+
+TEXTAREA::-webkit-input-placeholder { color: rgba(255,255,255,0.5); font-family: 'Rokkitt', serif; font-weight: 700; font-size: 16px; line-height: 1em; letter-spacing: 0.1em; }
+TEXTAREA:-moz-placeholder { color: rgba(255,255,255,0.5); font-family: 'Rokkitt', serif; font-weight: 700; font-size: 16px; line-height: 1em; letter-spacing: 0.1em; }
+TEXTAREA::-moz-placeholder { color: rgba(255,255,255,0.5); font-family: 'Rokkitt', serif; font-weight: 700; font-size: 16px; line-height: 1em; letter-spacing: 0.1em; }
+TEXTAREA:-ms-input-placeholder { color: rgba(255,255,255,0.5); font-family: 'Rokkitt', serif; font-weight: 700; font-size: 16px; line-height: 1em; letter-spacing: 0.1em; }
+TEXTAREA:focus::-webkit-input-placeholder { color: transparent; }
+TEXTAREA:focus:-moz-placeholder { color: transparent; }
+TEXTAREA:focus::-moz-placeholder { color: transparent; }
+TEXTAREA:focus:-ms-input-placeholder { color: transparent; }
+
+INPUT.alert { border-color: #FF6600; }
+INPUT.alert::-webkit-input-placeholder { color: #FF6600; }
+INPUT.alert:-moz-placeholder { color: #FF6600; }
+INPUT.alert::-moz-placeholder { color: #FF6600; }
+INPUT.alert:-ms-input-placeholder { color: #FF6600; }
+INPUT.alert:focus::-webkit-input-placeholder { color: transparent; }
+INPUT.alert:focus:-moz-placeholder { color: transparent; }
+INPUT.alert:focus::-moz-placeholder { color: transparent; }
+INPUT.alert:focus:-ms-input-placeholder { color: transparent; }
+
+INPUT[type="submit"] {
+  display: inline-block;
+  margin-top: 1em;
+  outline: 0;
+  border: 7px solid #F7B747;
+  border-radius: 5px;
+  width: auto;
+  box-sizing: border-box;
+  padding: 0.5em 1.5em 0.4em;
+  background: transparent;
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-appearance: none;
+  transition: all 0.2s;
+  width: 50%;
+}
+
+INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
+
 .site-width, .site-width-lined {
   width: 1100px;
   margin: 0 auto;
@@ -1163,6 +1246,38 @@ A.button:hover, A.button:active {
   color: #F7B747;
 }
 
+#baf LABEL.two-col-half { width: 22%; }
+
+FORM INPUT[type="checkbox"], FORM INPUT[type="radio"] { display: none; }
+
+FORM INPUT[type="checkbox"] + LABEL, FORM INPUT[type="radio"] + LABEL {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0.5em 33px 0.5em 0;
+}
+
+FORM INPUT[type="checkbox"] + LABEL:before, FORM INPUT[type="radio"] + LABEL:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+  width: 22px;
+  height: 22px;
+  margin-right: 15px;
+  position: relative;
+  top: -2px;
+}
+
+FORM INPUT[type="checkbox"]:checked + LABEL:before, FORM INPUT[type="radio"]:checked + LABEL:before {
+  background: #FFFFFF;
+}
+
+INPUT[name="donation_other"] { width: 250px; }
+
+FORM INPUT[type="submit"] { width: auto; white-space: normal; }
+
 .donate #dollar {
   color: #F7B747;
   font-family: 'Rokkitt', serif;
@@ -1572,71 +1687,6 @@ A.button:hover, A.button:active {
 }
 
 #contact-form { margin-top: 1.5em; width: 76%; }
-
-LABEL {
-  font-family: 'Rokkitt', serif;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 1em;
-}
-
-INPUT[type="text"],
-INPUT[type="email"],
-INPUT[type="tel"],
-TEXTAREA {
-  margin: 0.4em 0 2em;
-  outline: 0;
-  border: 2px solid #FFFFFF;
-  border-radius: 5px;
-  background: transparent;
-  color: #FFFFFF;
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1em;
-  padding: 0.6em 0.6em;
-  width: 100%;
-  box-sizing: border-box;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-TEXTAREA { height: 140px; padding: 0.75em 0.6em; }
-
-INPUT.alert { border-color: #FF6600; }
-INPUT.alert::-webkit-input-placeholder { color: #FF6600; }
-INPUT.alert:-moz-placeholder { color: #FF6600; }
-INPUT.alert::-moz-placeholder { color: #FF6600; }
-INPUT.alert:-ms-input-placeholder { color: #FF6600; }
-INPUT.alert:focus::-webkit-input-placeholder { color: transparent; }
-INPUT.alert:focus:-moz-placeholder { color: transparent; }
-INPUT.alert:focus::-moz-placeholder { color: transparent; }
-INPUT.alert:focus:-ms-input-placeholder { color: transparent; }
-
-INPUT[type="submit"] {
-  display: inline-block;
-  margin-top: 1em;
-  outline: 0;
-  border: 7px solid #F7B747;
-  border-radius: 5px;
-  width: auto;
-  box-sizing: border-box;
-  padding: 0.5em 1.5em 0.4em;
-  background: transparent;
-  color: #F7B747;
-  font-family: 'Rokkitt', serif;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  -webkit-appearance: none;
-  transition: all 0.2s;
-  width: 50%;
-}
-
-INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
 
 .two-col {
   display: flex;
@@ -2355,6 +2405,8 @@ INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
   .two-col LABEL { width: 100%; }
 
   INPUT[type="submit"] { width: 100%; }
+
+  #baf LABEL.two-col-half { width: 100%; }
   
   #content2.plants-tab { padding-bottom: 50vw; }
   #snake { width: auto; max-width: 100%; }
