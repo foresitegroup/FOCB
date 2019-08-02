@@ -1,5 +1,3 @@
-<?php //include_once get_template_directory_uri()."inc/fintoozler.php"; ?>
-
 <br>
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="POST" id="baf" novalidate>

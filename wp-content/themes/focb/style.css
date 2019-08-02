@@ -105,6 +105,13 @@ INPUT.alert:focus:-moz-placeholder { color: transparent; }
 INPUT.alert:focus::-moz-placeholder { color: transparent; }
 INPUT.alert:focus:-ms-input-placeholder { color: transparent; }
 
+FORM INPUT[type="checkbox"].alert + LABEL, FORM INPUT[type="radio"].alert + LABEL {
+  color: #FF6600;
+}
+FORM INPUT[type="checkbox"].alert + LABEL:before, FORM INPUT[type="radio"].alert + LABEL:before {
+  border-color: #FF6600;
+}
+
 INPUT[type="submit"] {
   display: inline-block;
   margin-top: 1em;
@@ -128,6 +135,13 @@ INPUT[type="submit"] {
 }
 
 INPUT[type="submit"]:hover { border-color: #FF6600; color: #FF6600; }
+
+.two-col {
+  display: flex;
+  justify-content: space-between;
+}
+
+.two-col LABEL { width: 48%; }
 
 .site-width, .site-width-lined {
   width: 1100px;
@@ -1246,7 +1260,7 @@ A.button:hover, A.button:active {
   color: #F7B747;
 }
 
-#baf LABEL.two-col-half { width: 22%; }
+LABEL.two-col-half { width: 22%; }
 
 FORM INPUT[type="checkbox"], FORM INPUT[type="radio"] { display: none; }
 
@@ -1687,13 +1701,6 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
 }
 
 #contact-form { margin-top: 1.5em; width: 76%; }
-
-.two-col {
-  display: flex;
-  justify-content: space-between;
-}
-
-.two-col LABEL { width: 48%; }
 
 #contact-visit {
   background: #F7B747 url(images/grid.png);

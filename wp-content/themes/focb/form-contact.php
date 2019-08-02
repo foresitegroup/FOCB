@@ -6,7 +6,8 @@ if ($_POST['fintoozler'] == "") {
      )
   {
     $Subject = ($_POST['subject'] != "") ? $_POST['subject'] : "Contact From Website";
-    $SendTo = "bogfriends@gmail.com";
+    // $SendTo = "bogfriends@gmail.com";
+    $SendTo = "marklippert@protonmail.com";
     $Headers = "From: Contact Form <donotreply@bogfriends.org>\r\n";
     $Headers .= "Reply-To: " . $_POST['email'] . "\r\n";
     $Headers .= "Bcc: mark@foresitegrp.com\r\n";
