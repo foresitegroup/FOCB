@@ -10,8 +10,7 @@ if ($_POST['fintoozler'] == "") {
      )
   {
     $Subject = "Become A Friend";
-    $SendTo = "marklippert@protonmail.com";
-    // $SendTo = "bogfriends@gmail.com";
+    $SendTo = "bogfriends@gmail.com";
     $Headers = "From: Become A Friend Form <donotreply@bogfriends.org>\r\n";
     $Headers .= "Reply-To: " . $_POST['email'] . "\r\n";
     $Headers .= "Bcc: mark@foresitegrp.com\r\n";

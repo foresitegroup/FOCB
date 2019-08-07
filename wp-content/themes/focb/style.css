@@ -1312,10 +1312,10 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
   width: 75%;
 }
 
-.donate INPUT#amount::-webkit-input-placeholder { color: #FFFFFF; }
-.donate INPUT#amount:-moz-placeholder { color: #FFFFFF; opacity: 1; }
-.donate INPUT#amount::-moz-placeholder { color: #FFFFFF; opacity: 1; }
-.donate INPUT#amount:-ms-input-placeholder { color: #FFFFFF; }
+.donate INPUT#amount::-webkit-input-placeholder { color: #FFFFFF; font-family: 'Rokkitt', serif; font-weight: 700; font-size: 72px; }
+.donate INPUT#amount:-moz-placeholder { color: #FFFFFF; font-family: 'Rokkitt', serif; font-weight: 700; font-size: 72px; opacity: 1; }
+.donate INPUT#amount::-moz-placeholder { color: #FFFFFF; font-family: 'Rokkitt', serif; font-weight: 700; font-size: 72px; opacity: 1; }
+.donate INPUT#amount:-ms-input-placeholder { color: #FFFFFF; font-family: 'Rokkitt', serif; font-weight: 700; font-size: 72px; }
 .donate INPUT#amount:focus::-webkit-input-placeholder { color: transparent; }
 .donate INPUT#amount:focus:-moz-placeholder { color: transparent; }
 .donate INPUT#amount:focus::-moz-placeholder { color: transparent; }
