@@ -10,7 +10,12 @@ get_header();
 
 <div id="contact">
   <div class="site-width">
-    Send the friends a message by completing the form below. You may also send an email to <a href="mailto:fieldstn@uwm.edu">fieldstn@uwm.edu</a> or call <a href="tel:262-675-6844">262-675-6844</a>.<br>
+    Send the friends a message by completing the form below. You may also call <a href="tel:262-675-6844">262-675-6844</a>. Our mailing address is:<br>
+    &nbsp; &nbsp; Friends of the Cedarburg Bog, Inc.<br>
+    &nbsp; &nbsp; C/O UW-Milwaukee Field Station<br>
+    &nbsp; &nbsp; 3095 Blue Goose Road<br>
+    &nbsp; &nbsp; Saukville, WI 53080<br>
+    <br>
     <br>
 
     <h2>Contact Us</h2>

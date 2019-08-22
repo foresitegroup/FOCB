@@ -970,8 +970,8 @@ A.button:hover, A.button:active {
   text-transform: uppercase;
 }
 
-#cal-grid-footer A:link, #cal-grid-footer A.visited { color: #F7B747; }
-#cal-grid-footer A:hover, #cal-grid-footer A.active { color: #292F2F; }
+#cal-grid-footer A:link, #cal-grid-footer A:visited { color: #F7B747; }
+#cal-grid-footer A:hover, #cal-grid-footer A:active { color: #292F2F; }
 
 #cal-grid-footer A:first-of-type:before {
   content: "\00ab";
@@ -996,6 +996,14 @@ A.button:hover, A.button:active {
 
 #cal-grid-footer > DIV SPAN.am { background: #E8A350; }
 #cal-grid-footer > DIV SPAN.pm { background: #FF6600; margin-left: 2em; }
+
+#cal-grid-sign-up {
+  padding: 1em 3%;
+  color: #FFFFFF;
+}
+
+#cal-grid-sign-up A:link, #cal-grid-sign-up A:visited { color: #F7B747; }
+#cal-grid-sign-up A:hover, #cal-grid-sign-up A:active { color: #292F2F; }
 
 #workshops {
   padding: 40px 0;

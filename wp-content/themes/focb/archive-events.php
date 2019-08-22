@@ -73,6 +73,7 @@
         });
       });
     </script>
+
   </div> <!-- .site-width -->
 </div> <!-- #events-calendar -->
 

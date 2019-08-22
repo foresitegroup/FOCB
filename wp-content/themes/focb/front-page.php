@@ -2,8 +2,8 @@
 
 <div class="site-width welcome-wrap">
   <div id="welcome">
-    <h3>Welcome, from the</h3>
-    <h2>Friends of Cedarburg Bog</h2>
+    <h3>Welcome from the</h3>
+    <h2>Friends of the Cedarburg Bog</h2>
     Scroll
     <span></span>
   </div>

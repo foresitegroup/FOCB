@@ -95,13 +95,13 @@
 
     <br>
 
-    <label><span class="yellow">WE ARE GOING GREEN!</span> We will now contact you via email and send you our quarterly newsletter, The Bog Haunter, electronically.</label><br>
+    <!-- <label><span class="yellow">WE ARE GOING GREEN!</span> We will now contact you via email and send you our quarterly newsletter, The Bog Haunter, electronically.</label><br>
     <input type="checkbox" name="newsletter[]" value="Email" id="nl1">
     <label for="nl1">Add me to the email list</label>
 
-    <input type="text" name="fintoozler" autocomplete="off" style="position: absolute; width: 0; height: 0; padding: 0; opacity: 0;">
+    <br><br> -->
 
-    <br><br>
+    <input type="text" name="fintoozler" autocomplete="off" style="position: absolute; width: 0; height: 0; padding: 0; opacity: 0;">
 
     <input type="submit" name="submit" value="Submit My Volunteer Form">
   </div>

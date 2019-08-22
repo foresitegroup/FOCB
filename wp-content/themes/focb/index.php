@@ -5,7 +5,7 @@
     <?php
     echo '<div class="blog-name">'.get_the_title(get_option('page_for_posts')).'</div>'."\n";
     echo '<h1>'.wp_title('', false).'</h1>'."\n";
-    echo '<div class="blog-date">'.get_the_date('F jS, Y').'</div>'."\n";
+    //echo '<div class="blog-date">'.get_the_date('F jS, Y').'</div>'."\n";
     echo '<a href="'.get_permalink(get_option('page_for_posts')).'">&laquo; Back to News</a>'."\n";
     ?>
   </div>
@@ -23,7 +23,7 @@
   	while (have_posts()) : the_post();
       if (!is_single()) :
         the_title('<h2>', '</h2>');
-        echo '<div class="blog-date">'.get_the_date('F jS, Y').'</div>'."\n";
+        //echo '<div class="blog-date">'.get_the_date('F jS, Y').'</div>'."\n";
 
         echo fg_excerpt(82, '...') . "<br><br>\n";
 

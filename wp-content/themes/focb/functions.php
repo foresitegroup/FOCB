@@ -743,6 +743,10 @@ function cal_grid_by_ajax_callback() {
 
       <a href="<?php echo date("Ym", $nextmonth); ?>" class="calnav">Next Month</a>
     </div>
+
+    <div id="cal-grid-sign-up">
+      <a href="<?php echo home_url(); ?>/mailing-list/">Sign up for our mailing list</a> to receive event information, The BogHaunter quarterly newsletter and more!
+    </div>
   </div>
 
   <?php
