@@ -12,7 +12,7 @@ get_header();
   <input id="tab1" type="radio" name="tabs" checked>
   <label for="tab1">The Friend's Mission</label>
 
-  <input id="tab2" type="radio" name="tabs">
+  <input id="tab2" type="radio" name="tabs"<?php if ($_SERVER['QUERY_STRING'] == "meet-the-friends") echo ' checked'; ?>>
   <label for="tab2">Meet the Friends</label>
 
   <div id="content1">
