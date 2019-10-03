@@ -1,5 +1,18 @@
 <?php
-if ($_POST['fintoozler'] == "") {
+include_once "inc/fintoozler.php";
+
+class Captcha {
+  public function getCaptcha($SecretKey) {
+    $cresponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".RECAPTCHA_SECRET_KEY."&response={$SecretKey}");
+    $creturn = json_decode($cresponse);
+    return $creturn;
+  }
+}
+
+$oc = new Captcha();
+$creturn = $oc->getCaptcha($_POST['g-recaptcha-response']);
+
+if ($creturn->success) {
   if (
       $_POST['firstname'] != "" && $_POST['lastname'] != "" &&
       $_POST['phone'] != "" && $_POST['email'] != ""

@@ -2,6 +2,8 @@
 /* Template Name: Contact */
 
 get_header();
+
+include_once "inc/fintoozler.php";
 ?>
 
 <div id="page-header">
@@ -56,7 +58,7 @@ get_header();
           <textarea name="comments"></textarea>
         </label>
 
-        <input type="text" name="fintoozler" autocomplete="off" style="position: absolute; width: 0; height: 0; padding: 0; opacity: 0;">
+        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
 
         <br>
         <input type="submit" name="submit" value="Send">
@@ -64,6 +66,15 @@ get_header();
     </form>
   </div> <!-- .site-width -->
 </div> <!-- #contact -->
+
+<script src="https://www.google.com/recaptcha/api.js?render=<?php echo RECAPTCHA_SITE_KEY; ?>"></script>
+<script>
+  grecaptcha.ready(function() {
+    grecaptcha.execute('<?php echo RECAPTCHA_SITE_KEY; ?>', {action: 'contact_form'}).then(function(token) {
+      document.getElementById('g-recaptcha-response').value=token;
+    });
+  });
+</script>
 
 <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.css">
 <script src="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.js"></script>
