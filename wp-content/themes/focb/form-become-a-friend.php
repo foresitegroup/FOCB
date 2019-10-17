@@ -13,6 +13,7 @@ if ($_POST['fintoozler'] == "") {
     $SendTo = "bogfriends@gmail.com";
     $Headers = "From: Become A Friend Form <donotreply@bogfriends.org>\r\n";
     $Headers .= "Reply-To: " . $_POST['email'] . "\r\n";
+    $Headers .= "Cc: cboetchr@uwm.edu\r\n";
     $Headers .= "Bcc: foresitegroupllc@gmail.com\r\n";
 
     $Message = $_POST['first_name'] . " " . $_POST['last_name'] . "\n";
