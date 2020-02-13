@@ -1,25 +1,17 @@
 <?php
 include_once "inc/fintoozler.php";
 
-class Captcha {
-  public function getCaptcha($SecretKey) {
-    $cresponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".RECAPTCHA_SECRET_KEY."&response={$SecretKey}");
-    $creturn = json_decode($cresponse);
-    return $creturn;
-  }
-}
+$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".RECAPTCHA_SECRET_KEY."&response=".$_POST['g-recaptcha-response']);
+$responsekeys = json_decode($response);
 
-$oc = new Captcha();
-$creturn = $oc->getCaptcha($_POST['g-recaptcha-response']);
-
-if ($creturn->success) {
+if ($responsekeys->success) {
   if (
       $_POST['firstname'] != "" && $_POST['lastname'] != "" &&
       $_POST['phone'] != "" && $_POST['email'] != ""
      )
   {
     $Subject = ($_POST['subject'] != "") ? $_POST['subject'] : "Contact From Website";
-    $SendTo = "bogfriends@gmail.com";
+    $SendTo = "bogfriends@gmail.com, admin@bogfriends.org";
     $Headers = "From: Contact Form <donotreply@bogfriends.org>\r\n";
     $Headers .= "Reply-To: " . $_POST['email'] . "\r\n";
     $Headers .= "Bcc: foresitegroupllc@gmail.com\r\n";

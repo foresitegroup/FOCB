@@ -58,7 +58,7 @@ include_once "inc/fintoozler.php";
           <textarea name="comments"></textarea>
         </label>
 
-        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+        <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SITE_KEY; ?>"></div>
 
         <br>
         <input type="submit" name="submit" value="Send">
@@ -67,14 +67,7 @@ include_once "inc/fintoozler.php";
   </div> <!-- .site-width -->
 </div> <!-- #contact -->
 
-<script src="https://www.google.com/recaptcha/api.js?render=<?php echo RECAPTCHA_SITE_KEY; ?>"></script>
-<script>
-  grecaptcha.ready(function() {
-    grecaptcha.execute('<?php echo RECAPTCHA_SITE_KEY; ?>', {action: 'contact_form'}).then(function(token) {
-      document.getElementById('g-recaptcha-response').value=token;
-    });
-  });
-</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.css">
 <script src="<?php echo get_template_directory_uri(); ?>/inc/jquery.fancybox.min.js"></script>
