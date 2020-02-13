@@ -4,7 +4,7 @@ include_once "inc/fintoozler.php";
 if ($_POST['fintoozler'] == "") {
   if ($_POST['first_name'] != "" && $_POST['last_name'] != "" && $_POST['email'] != "") {
     $Subject = "Mailing List";
-    $SendTo = "bogfriends@gmail.com";
+    $SendTo = "bogfriends@gmail.com, fieldstn@uwm.edu";
     $Headers = "From: Mailing List Form <donotreply@bogfriends.org>\r\n";
     $Headers .= "Reply-To: " . $_POST['email'] . "\r\n";
     $Headers .= "Bcc: foresitegroupllc@gmail.com\r\n";
