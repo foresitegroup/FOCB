@@ -704,6 +704,13 @@ A.button:hover, A.button:active {
 }
 
 /* PROGRAMS & EVENTS */
+#notice {
+  padding: 1em 0;
+  background: #E48D36;
+  color: #FFFFFF;
+  text-align: center;
+}
+
 #events-calendar {
   background: linear-gradient(to right, #37403F 50%, #696E6E 50%);
   position: relative;
