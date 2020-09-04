@@ -2146,6 +2146,192 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
 #faq A:hover, #faq A:active { color: #FFFFFF; }
 
 
+/* Virtual Annual Member Meeting */
+.vamm-header {
+  font-family: 'Rokkitt', serif;
+  font-size: 18px;
+  line-height: 1em;
+  font-weight: 800;
+  text-align: center;
+  padding: 50px 2%;
+  text-transform: uppercase;
+}
+
+.vamm-header H1 { color: #FFFFFF; font-size: 333.33% !important; }
+.vamm-header H2 { margin: 0.25em 0 0; font-size: 133.33%; line-height: 1em; }
+
+#vamm {
+  background: #37413F url(images/camo-fade.jpg) no-repeat center top;
+  color: #FFFFFF;
+  padding: 50px 0 100px;
+  letter-spacing: 0.1em;
+}
+
+#vamm .hline {
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+  padding: 36px calc((100% - 1100px) / 2) 0;
+  box-sizing: border-box;
+}
+
+#vamm H2,
+#vamm .hline H2 {
+  margin: 0 0 6px;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+}
+
+#vamm .hline H2 {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: calc((100% - 1100px) / 2);
+  width: calc(100% - ((100% - 1100px) / 2));
+  overflow: hidden;
+}
+
+#vamm .hline H2:after {
+  content: "";
+  border-radius: 2px 0 0 2px;
+  background: #F7B747;
+  height: 5px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0.4em;
+}
+
+#vamm H3 {
+  margin: 1em 0 0.25em;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+}
+
+#vamm .dir {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1em 0;
+}
+
+#vamm .dir .image {
+  width: 10.45%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#vamm .dir .image:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+#vamm .dir.noimg .image { display: none; }
+
+#vamm .dir .text { width: 87.72%; }
+
+#vamm .dir.noimg .text { width: 100%; }
+
+#vamm .dir .text H4 {
+  margin: 0;
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 800;
+  font-size: 142.85%;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+#vamm .dir .text H4 SPAN {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 70%;
+}
+
+#vamm .dir .text H4 SPAN SUP {
+  font-size: 60%;
+  position: relative;
+  top: 2px;
+}
+
+#vamm .dir .text P:last-of-type { margin: 0; }
+
+#vamm .dir .text A {
+  display: inline-block;
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#vamm .dir .text A:after {
+  content: "\00BB";
+  padding-left: 0.5em;
+  display: inline-block;
+}
+
+#vamm .dir .text A:hover { color: #FFFFFF; }
+
+#vamm .button { margin-top: 1.5em; }
+
+#vamm .report H3 { margin: 1.5em 0 0; }
+
+#vamm .report H5 {
+  margin: 0;
+  color: #F7B747;
+  font-family: 'Rokkitt', serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#vamm .report-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1em 0 0;
+}
+
+#vamm .report-content .image {
+  width: 36.45%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+#vamm .report-content .image:before {
+  content: "";
+  display: block;
+  padding-top: 56.35%;
+}
+
+#vamm .report-content .image IFRAME {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#vamm .report.noimg .report-content .image { display: none; }
+
+#vamm .report-content .text { width: 60.72%; }
+
+#vamm .report.noimg .report-content .text { width: 100%; }
+
+#vamm .report-content .text P:last-of-type { margin: 0; }
+
+
 @media only screen and (min-width: 1920px) {
   BODY.home { background-size: contain; }
 
@@ -2206,6 +2392,9 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
   #snake { width: 60%; height: auto; }
 
   #boghaunter { background-position: right -10% top 0, center top; }
+  
+  #vamm .hline { padding-left: 2%; padding-right: 2%; }
+  #vamm .hline H2 { left: 2%; width: 98%; }
 }
 
 @media only screen and (max-width: 1100px) {
@@ -2291,6 +2480,12 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
   #contact-form { width: 100%; }
 
   #boghaunter { background-position: right -300% top 0, center top; }
+
+  #vamm .dir .image { width: 25.45%; }
+  #vamm .dir .text { width: 72.72%; }
+
+  #vamm .report-content .image { width: 46.45%; }
+  #vamm .report-content .text { width: 50.72%; }
 }
 
 @media only screen and (max-width: 830px) {
@@ -2406,6 +2601,11 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
   #bird { width: 80vw; }
 
   #home-plants-animals .site-width { padding: 35vw 0 50vw; }
+  
+  #vamm .report-content { flex-direction: column; }
+  #vamm .report-content .image,
+  #vamm .report-content .text { width: 100%; }
+  #vamm .report-content .text { padding-top: 1em; }
 }
 
 @media only screen and (max-width: 600px) {
@@ -2434,12 +2634,20 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
   #snake { width: auto; max-width: 100%; }
 
   #gallery .gallery-index A { width: 50%; }
+
+  #vamm .dir .image { width: 33%; }
+  #vamm .dir .text { width: 64%; }
 }
 
 @media only screen and (max-width: 500px) {
   #get-involved-tabs.stewardship { padding-top: 55px; }
   #get-involved-tabs.stewardship H2 { position: relative; top: 0; left: 0; margin-bottom: 0.75em; }
   #get-involved-tabs.stewardship H2:after { display: none; }
+  
+  #vamm .dir { flex-direction: column; }
+  #vamm .dir .image,
+  #vamm .dir .text { width: 100%; }
+  #vamm .dir .text { padding-top: 1em; }
 }
 
 @media only screen and (max-width: 480px) {

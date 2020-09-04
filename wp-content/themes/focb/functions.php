@@ -1228,4 +1228,455 @@ function custom_boghaunter_column($column, $post_id) {
       break;
   }
 }
+
+
+/*
+*  Add fields to "Virtual Annual Member Meeting" edit page
+*/
+// Place fields after the title
+add_action('edit_form_after_title', 'vamm_after_title');
+function vamm_after_title($post) {
+  if ($post->post_name == 'virtual-annual-member-meeting') {
+    ?>
+    <style>
+      #titlediv #edit-slug-box #edit-slug-buttons { display: none; }
+      .vamm_title { width: 100%; margin: 0.5em 0 1em; }
+      .vamm_title.vt_first { margin: 2em 0 0; }
+      #vamm_section2_mb HR { margin: 20px 0; }
+    </style>
+
+    <input type="text" name="vamm_section1_title" placeholder="Section 1 Title" value="<?php if ($post->vamm_section1_title != "") echo $post->vamm_section1_title; ?>" class="vamm_title vt_first">
+    <?php
+  }
+}
+
+add_action('add_meta_boxes', 'vamm_metabox');
+function vamm_metabox() {
+  global $post;
+
+  if ($post->post_name == 'virtual-annual-member-meeting') {
+    add_meta_box('vamm_section2_mb', 'Section 2', 'vamm_section2_mb_content', 'page', 'normal');
+    add_meta_box('vamm_section3_mb', 'Section 3', 'vamm_section3_mb_content', 'page', 'normal');
+    add_meta_box('vamm_section4_mb', 'Section 4', 'vamm_section4_mb_content', 'page', 'normal');
+  }
+}
+
+function vamm_section2_mb_content($post) {
+  ?>
+  <input type="text" name="vamm_section2_title" placeholder="Section 2 Title" value="<?php if ($post->vamm_section2_title != "") echo $post->vamm_section2_title; ?>" class="vamm_title">
+  <?php
+  wp_editor(html_entity_decode($post->vamm_section2, ENT_QUOTES), 'vamm_section2', array('textarea_rows' => 10));
+  ?>
+  <hr>
+
+  <input type="text" name="vamm_dirsection1_title" placeholder="Director Section 1 Title" value="<?php if ($post->vamm_dirsection1_title != "") echo $post->vamm_dirsection1_title; ?>" class="vamm_title">
+
+  <div id="newdir_rows">
+    <?php
+    $newdir = get_post_meta($post->ID, 'vamm_newdir', true);
+
+    if (isset($newdir['name'])) {
+      for($i = 0; $i < count($newdir['name']); $i++) {
+        ?>
+        <div class="dir_box">
+          <div class="dir_image" style="background-image: url(<?php esc_html_e($newdir['image_url'][$i]); ?>);">
+            <div class="addimage" onclick="add_image(this)">Add Image</div>
+            <?php if ($newdir['image_url'][$i] != "") { ?>
+            <div class="removeimage" onclick="remove_image(this)">Remove Image</div>
+            <?php } ?>
+            <input type="hidden" name="nd[image_url][]" value="<?php esc_html_e($newdir['image_url'][$i]); ?>">
+          </div>
+
+          <div class="dir_inputs">
+            <input type="text" name="nd[name][]" value="<?php esc_html_e($newdir['name'][$i]); ?>" placeholder="Name"><br>
+            <input type="text" name="nd[term][]" value="<?php esc_html_e($newdir['term'][$i]); ?>" placeholder="Term"><br>
+            <textarea name="nd[text][]" placeholder="Text"><?php esc_html_e($newdir['text'][$i]); ?></textarea><br>
+            <input type="text" name="nd[link][]" value="<?php esc_html_e($newdir['link'][$i]); ?>" placeholder="Link ID" class="link"><br>
+            <em>This must match the ID of the H3 tag on the Directors page.<br>For example, <code>&lt;h3 id="jim-reinartz"&gt;Jim Reinartz&lt;/h3&gt;</code>.</em><br>
+            <br>
+            <button onclick="remove_person(this)">Remove Person</button>
+          </div>
+        </div>
+        <?php
+      }
+    }
+    ?>
+  </div>
+
+  <div class="dir_add" onclick="add_person()">Add Person</div>
+
+  <hr>
+
+  <input type="text" name="vamm_dirsection2_title" placeholder="Director Section 2 Title" value="<?php if ($post->vamm_dirsection2_title != "") echo $post->vamm_dirsection2_title; ?>" class="vamm_title">
+
+  <div id="retdir_rows">
+    <?php
+    $retdir = get_post_meta($post->ID, 'vamm_retdir', true);
+
+    if (isset($retdir['name'])) {
+      for($i = 0; $i < count($retdir['name']); $i++) {
+        ?>
+        <div class="dir_box">
+          <div class="dir_image" style="background-image: url(<?php esc_html_e($retdir['image_url'][$i]); ?>);">
+            <div class="addimage" onclick="add_image_ret(this)">Add Image</div>
+            <?php if ($retdir['image_url'][$i] != "") { ?>
+            <div class="removeimage" onclick="remove_image_ret(this)">Remove Image</div>
+            <?php } ?>
+            <input type="hidden" name="rd[image_url][]" value="<?php esc_html_e($retdir['image_url'][$i]); ?>">
+          </div>
+
+          <div class="dir_inputs">
+            <input type="text" name="rd[name][]" value="<?php esc_html_e($retdir['name'][$i]); ?>" placeholder="Name"><br>
+            <input type="text" name="rd[term][]" value="<?php esc_html_e($retdir['term'][$i]); ?>" placeholder="Term"><br>
+            <textarea name="rd[text][]" placeholder="Text"><?php esc_html_e($retdir['text'][$i]); ?></textarea><br>
+            <input type="text" name="rd[link][]" value="<?php esc_html_e($retdir['link'][$i]); ?>" placeholder="Link ID" class="link"><br>
+            <em>This must match the ID of the H3 tag on the Directors page.<br>For example, <code>&lt;h3 id="jim-reinartz"&gt;Jim Reinartz&lt;/h3&gt;</code>.</em><br>
+            <br>
+            <button onclick="remove_person(this)">Remove Person</button>
+          </div>
+        </div>
+        <?php
+      }
+    }
+    ?>
+  </div>
+
+  <div class="dir_add" onclick="add_person_ret()">Add Person</div>
+
+  <style>
+    .dir_box {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+      position: relative;
+      cursor: move;
+      background: #FFFFFF;
+    }
+
+    .dir_image {
+      position: relative;
+      z-index: 2;
+      width: 280px;
+      height: 280px;
+      border-radius: 3px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .dir_inputs { flex-grow: 2; text-align: right; }
+
+    .dir_inputs INPUT { width: 95%; margin-bottom: 1em; }
+    .dir_inputs INPUT.link { margin-bottom: 0; }
+    .dir_inputs TEXTAREA { width: 95%; margin-bottom: 1em; height: 11em; }
+
+    .removeimage, .dir_inputs BUTTON, .report_box BUTTON {
+      outline: 0;
+      border: 0;
+      border-radius: 3px;
+      padding: 0.7em 1em;
+      background: #DD2D2D;
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+
+    .removeimage:hover, .dir_inputs BUTTON:hover, .report_box BUTTON:hover { background: #BB2D2D; }
+
+    .addimage, .dir_add {
+      display: inline-block;
+      outline: 0;
+      border: 0;
+      border-radius: 3px;
+      padding: 0.7em 1em;
+      background: #007CBA;
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+
+    .addimage {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translateY(110%);
+    }
+
+    .removeimage {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      transform: translateY(110%);
+      display: none;
+    }
+
+    .addimage:hover, .dir_add:hover { background: #0071A1; }
+  </style>
+  <script type="text/javascript">
+    jQuery(function() { jQuery("#newdir_rows, #retdir_rows").sortable(); });
+
+    function remove_person(value) { jQuery(value).parent().parent().remove(); }
+
+    var media_uploader = null;
+    
+    function add_person(){
+      var box = '<div class="dir_box"><div class="dir_image"><div class="addimage" onclick="add_image(this)">Add Image</div><div class="removeimage" onclick="remove_image(this)">Remove Image</div></div><div class="dir_inputs"><input type="text" name="nd[name][]" value="" placeholder="Name"><br><input type="text" name="nd[term][]" value="" placeholder="Term"><br><textarea name="nd[text][]" placeholder="Text"></textarea><br><input type="text" name="nd[link][]" value="" placeholder="Link ID" class="link"><br><em>This must match the ID of the H3 tag on the Directors page.<br>For example, <code>&lt;h3 id="jim-reinartz"&gt;Jim Reinartz&lt;/h3&gt;</code>.</em><br><br><button onclick="remove_person(this)">Remove Person</button></div></div>';
+      jQuery(box).appendTo('#newdir_rows');
+    }
+
+    function add_person_ret(){
+      var box = '<div class="dir_box"><div class="dir_image"><div class="addimage" onclick="add_image_ret(this)">Add Image</div><div class="removeimage" onclick="remove_image_ret(this)">Remove Image</div></div><div class="dir_inputs"><input type="text" name="rd[name][]" value="" placeholder="Name"><br><input type="text" name="rd[term][]" value="" placeholder="Term"><br><textarea name="rd[text][]" placeholder="Text"></textarea><br><input type="text" name="rd[link][]" value="" placeholder="Link ID" class="link"><br><em>This must match the ID of the H3 tag on the Directors page.<br>For example, <code>&lt;h3 id="jim-reinartz"&gt;Jim Reinartz&lt;/h3&gt;</code>.</em><br><br><button onclick="remove_person(this)">Remove Person</button></div></div>';
+      jQuery(box).appendTo('#retdir_rows');
+    }
+    
+    function add_image(value){
+      media_uploader = wp.media({ frame: "post", state: "insert", multiple: true });
+
+      media_uploader.on("insert", function() {
+        var length = media_uploader.state().get("selection").length;
+        var images = media_uploader.state().get("selection").models;
+
+        for(var iii = 0; iii < length; iii++) {
+          var image_url = images[iii].changed.url;
+
+          var input = '<input type="hidden" name="nd[image_url][]" value="">';
+
+          var element = jQuery(value).parent();
+
+          jQuery(input).appendTo(element);
+
+          element.css('background-image', 'url('+image_url+')');
+          element.find('INPUT[name^="nd[image_url]"]').val(image_url);
+          element.find('.removeimage').css('display', 'inline-block');
+        }
+      });
+
+      media_uploader.open();
+    }
+
+    function add_image_ret(value){
+      media_uploader = wp.media({ frame: "post", state: "insert", multiple: true });
+
+      media_uploader.on("insert", function() {
+        var length = media_uploader.state().get("selection").length;
+        var images = media_uploader.state().get("selection").models;
+
+        for(var iii = 0; iii < length; iii++) {
+          var image_url = images[iii].changed.url;
+
+          var input = '<input type="hidden" name="rd[image_url][]" value="">';
+
+          var element = jQuery(value).parent();
+
+          jQuery(input).appendTo(element);
+
+          element.css('background-image', 'url('+image_url+')');
+          element.find('INPUT[name^="rd[image_url]"]').val(image_url);
+          element.find('.removeimage').css('display', 'inline-block');
+        }
+      });
+
+      media_uploader.open();
+    }
+
+    function remove_image(value) {
+      var element = jQuery(value).parent();
+      element.css('background-image', 'none');
+      element.find('INPUT[name^="nd[image_url]"]').val('');
+      element.find('.removeimage').css('display', 'none');
+    }
+
+    function remove_image_ret(value) {
+      var element = jQuery(value).parent();
+      element.css('background-image', 'none');
+      element.find('INPUT[name^="rd[image_url]"]').val('');
+      element.find('.removeimage').css('display', 'none');
+    }
+  </script>
+
+  <hr>
+
+  <strong style="font-size: 125%;">Vote Button</strong><br>
+  <input type="text" name="vamm_vote_button_text" placeholder="Vote Button Text" value="<?php if ($post->vamm_vote_button_text != "") echo $post->vamm_vote_button_text; ?>" class="vamm_title">
+
+  <input type="text" name="vamm_vote_button_link" placeholder="Vote Button Link" value="<?php if ($post->vamm_vote_button_link != "") echo $post->vamm_vote_button_link; ?>" class="vamm_title">
+  <?php
+}
+
+function vamm_section3_mb_content($post) {
+  ?>
+  <input type="text" name="vamm_section3_title" placeholder="Section 3 Title" value="<?php if ($post->vamm_section3_title != "") echo $post->vamm_section3_title; ?>" class="vamm_title">
+  <?php
+  wp_editor(html_entity_decode($post->vamm_section3, ENT_QUOTES), 'vamm_section3', array('textarea_rows' => 10));
+  ?>
+
+  <div id="rep_rows">
+    <?php
+    $vamm_reports = get_post_meta($post->ID, 'vamm_reports', true);
+    if (isset($vamm_reports['title'])) {
+      for($i = 0; $i < count($vamm_reports['title']); $i++) {
+        ?>
+        <div class="report_box">
+          <input type="text" name="rep[title][]" value="<?php esc_html_e($vamm_reports['title'][$i]); ?>" placeholder="Title"><br>
+          <input type="text" name="rep[subtitle][]" value="<?php esc_html_e($vamm_reports['subtitle'][$i]); ?>" placeholder="Subtitle"><br>
+          <textarea name="rep[text][]" placeholder="Text"><?php esc_html_e($vamm_reports['text'][$i]); ?></textarea><br>
+          <input type="text" name="rep[link][]" value="<?php esc_html_e($vamm_reports['link'][$i]); ?>" placeholder="Image or Video URL" class="link">
+          <div class="link_add" onclick="rep_add_image(this)">Add Image</div>
+          <em>Video example: https://www.youtube.com/watch?v=dQw4w9WgXcQ</em><br>
+          <br>
+          <button onclick="remove_report(this)">Remove Report</button>
+        </div>
+        <?php
+      }
+    }
+    ?>
+  </div>
+
+  <div class="dir_add" onclick="add_report()">Add Report</div>
+
+  <style>
+    #rep_rows { margin-top: 2em; }
+
+    .report_box {
+      margin: 20px 0;
+      position: relative;
+      cursor: move;
+      background: #FFFFFF;
+    }
+
+    .report_box INPUT { width: 100%; margin-bottom: 1em; }
+    .report_box INPUT.link { width: calc(100% - 105px); margin: 0 10px 0 0; box-sizing: border-box; }
+    .report_box TEXTAREA { width: 100%; margin-bottom: 1em; height: 11em; }
+
+    .report_box .link_add {
+      display: inline-block;
+      border-radius: 3px;
+      background: #007CBA;
+      color: #FFFFFF;
+      cursor: pointer;
+      height: 32px;
+      line-height: 32px;
+      width: 90px;
+      text-align: center;
+    }
+
+    .report_box .link_add:hover { background: #0071A1; }
+  </style>
+
+  <script type="text/javascript">
+    jQuery(function() { jQuery("#rep_rows").sortable(); });
+
+    function add_report(){
+      var box = '<div class="report_box"><input type="text" name="rep[title][]" value="" placeholder="Title"><br><input type="text" name="rep[subtitle][]" value="" placeholder="Subtitle"><br><textarea name="rep[text][]" placeholder="Text"></textarea><br><input type="text" name="rep[link][]" value="" placeholder="Image or Video URL" class="link"><div class="link_add" onclick="rep_add_image(this)">Add Image</div><em>Video example: https://www.youtube.com/watch?v=dQw4w9WgXcQ</em><br><br><button onclick="remove_report(this)">Remove Report</button></div>';
+      jQuery(box).appendTo('#rep_rows');
+    }
+
+    function rep_add_image(value){
+      var element = jQuery(value).parent();
+
+      var send_attachment_bkp = wp.media.editor.send.attachment;
+      wp.media.editor.send.attachment = function(props, attachment) {
+        element.find('.link').val(attachment.url);
+        wp.media.editor.send.attachment = send_attachment_bkp;
+      }
+ 
+      wp.media.editor.open();
+ 
+      return false;
+    }
+  </script>
+  <?php
+}
+
+function vamm_section4_mb_content($post) {
+  ?>
+  <input type="text" name="vamm_section4_title" placeholder="Section 4 Title" value="<?php if ($post->vamm_section4_title != "") echo $post->vamm_section4_title; ?>" class="vamm_title">
+  <?php
+  wp_editor(html_entity_decode($post->vamm_section4, ENT_QUOTES), 'vamm_section4', array('textarea_rows' => 10));
+}
+
+add_action('save_post', 'vamm_save');
+function vamm_save($post_id) {
+  if (!empty($_POST['vamm_section1_title'])) {
+    update_post_meta($post_id, 'vamm_section1_title', $_POST['vamm_section1_title']);
+  } else {
+    delete_post_meta($post_id, 'vamm_section1_title');
+  }
+
+  if (!empty($_POST['vamm_section2_title'])) {
+    update_post_meta($post_id, 'vamm_section2_title', $_POST['vamm_section2_title']);
+  } else {
+    delete_post_meta($post_id, 'vamm_section2_title');
+  }
+
+  if (!empty($_POST['vamm_section2'])) {
+    update_post_meta($post_id, 'vamm_section2', $_POST['vamm_section2']);
+  } else {
+    delete_post_meta($post_id, 'vamm_section2');
+  }
+
+  if (!empty($_POST['vamm_dirsection1_title'])) {
+    update_post_meta($post_id, 'vamm_dirsection1_title', $_POST['vamm_dirsection1_title']);
+  } else {
+    delete_post_meta($post_id, 'vamm_dirsection1_title');
+  }
+
+  if (!empty($_POST['nd'])) {
+    update_post_meta($post_id, 'vamm_newdir', $_POST['nd']);
+  } else {
+    delete_post_meta($post_id, 'vamm_newdir');
+  }
+
+  if (!empty($_POST['vamm_dirsection2_title'])) {
+    update_post_meta($post_id, 'vamm_dirsection2_title', $_POST['vamm_dirsection2_title']);
+  } else {
+    delete_post_meta($post_id, 'vamm_dirsection2_title');
+  }
+
+  if (!empty($_POST['rd'])) {
+    update_post_meta($post_id, 'vamm_retdir', $_POST['rd']);
+  } else {
+    delete_post_meta($post_id, 'vamm_retdir');
+  }
+
+  if (!empty($_POST['vamm_vote_button_text'])) {
+    update_post_meta($post_id, 'vamm_vote_button_text', $_POST['vamm_vote_button_text']);
+  } else {
+    delete_post_meta($post_id, 'vamm_vote_button_text');
+  }
+
+  if (!empty($_POST['vamm_vote_button_link'])) {
+    update_post_meta($post_id, 'vamm_vote_button_link', $_POST['vamm_vote_button_link']);
+  } else {
+    delete_post_meta($post_id, 'vamm_vote_button_link');
+  }
+
+  if (!empty($_POST['vamm_section3_title'])) {
+    update_post_meta($post_id, 'vamm_section3_title', $_POST['vamm_section3_title']);
+  } else {
+    delete_post_meta($post_id, 'vamm_section3_title');
+  }
+
+  if (!empty($_POST['vamm_section3'])) {
+    update_post_meta($post_id, 'vamm_section3', $_POST['vamm_section3']);
+  } else {
+    delete_post_meta($post_id, 'vamm_section3');
+  }
+
+  if (!empty($_POST['rep'])) {
+    update_post_meta($post_id, 'vamm_reports', $_POST['rep']);
+  } else {
+    delete_post_meta($post_id, 'vamm_reports');
+  }
+
+  if (!empty($_POST['vamm_section4_title'])) {
+    update_post_meta($post_id, 'vamm_section4_title', $_POST['vamm_section4_title']);
+  } else {
+    delete_post_meta($post_id, 'vamm_section4_title');
+  }
+
+  if (!empty($_POST['vamm_section4'])) {
+    update_post_meta($post_id, 'vamm_section4', $_POST['vamm_section4']);
+  } else {
+    delete_post_meta($post_id, 'vamm_section4');
+  }
+}
 ?>

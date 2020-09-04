@@ -4,6 +4,13 @@
 get_header();
 ?>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    if ($('#'+location.href.split("#")[1]).length)
+      $('html,body').animate({scrollTop: $('#'+location.href.split("#")[1]).offset().top - 150}, 300);
+  });
+</script>
+
 <div id="page-header" class="about">
   <?php the_title('<h1 class="site-width">', '</h1>'); ?>
 </div>
@@ -12,7 +19,7 @@ get_header();
   <input id="tab1" type="radio" name="tabs" checked>
   <label for="tab1">The Friend's Mission</label>
 
-  <input id="tab2" type="radio" name="tabs"<?php if ($_SERVER['QUERY_STRING'] == "meet-the-friends") echo ' checked'; ?>>
+  <input id="tab2" type="radio" name="tabs"<?php if ($_SERVER['QUERY_STRING'] == "meet-the-friends" || $_SERVER['QUERY_STRING'] == "mtf-dir") echo ' checked'; ?>>
   <label for="tab2">Meet the Friends</label>
 
   <div id="content1">
@@ -42,7 +49,7 @@ get_header();
       <input id="sub-tab-officers" type="radio" name="sub-tabs" checked>
       <label for="sub-tab-officers">Officers</label>
 
-      <input id="sub-tab-directors" type="radio" name="sub-tabs">
+      <input id="sub-tab-directors" type="radio" name="sub-tabs"<?php if ($_SERVER['QUERY_STRING'] == "mtf-dir") echo ' checked'; ?>>
       <label for="sub-tab-directors">Directors</label>
 
       <input id="sub-tab-advisors" type="radio" name="sub-tabs">
