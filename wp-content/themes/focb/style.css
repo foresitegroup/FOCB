@@ -2167,6 +2167,8 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
   letter-spacing: 0.1em;
 }
 
+#vamm A:not(.button):hover { color: #F7B747; }
+
 #vamm .hline {
   position: relative;
   width: 100%;
