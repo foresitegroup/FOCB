@@ -2268,6 +2268,7 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
 
 #vamm .dir .text P:last-of-type { margin: 0; }
 
+A.vamm-rm ,
 #vamm .dir .text A {
   display: inline-block;
   color: #F7B747;
@@ -2276,12 +2277,14 @@ FORM INPUT[type="submit"] { width: auto; white-space: normal; }
   text-transform: uppercase;
 }
 
+A.vamm-rm :after,
 #vamm .dir .text A:after {
   content: "\00BB";
   padding-left: 0.5em;
   display: inline-block;
 }
 
+A.vamm-rm :hover,
 #vamm .dir .text A:hover { color: #FFFFFF; }
 
 #vamm .button { margin-top: 1.5em; }
