@@ -1564,6 +1564,8 @@ function vamm_section3_mb_content($post) {
   <script type="text/javascript">
     jQuery(function() { jQuery("#rep_rows").sortable(); });
 
+    function remove_report(value) { jQuery(value).parent().remove(); }
+
     function add_report(){
       var box = '<div class="report_box"><input type="text" name="rep[title][]" value="" placeholder="Title"><br><input type="text" name="rep[subtitle][]" value="" placeholder="Subtitle"><br><textarea name="rep[text][]" placeholder="Text"></textarea><br><input type="text" name="rep[link][]" value="" placeholder="Image or Video URL" class="link"><div class="link_add" onclick="rep_add_image(this)">Add Image</div><em>Video example: https://www.youtube.com/watch?v=dQw4w9WgXcQ</em><br><br><button onclick="remove_report(this)">Remove Report</button></div>';
       jQuery(box).appendTo('#rep_rows');
