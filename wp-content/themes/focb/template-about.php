@@ -55,8 +55,8 @@ get_header();
       <input id="sub-tab-advisors" type="radio" name="sub-tabs">
       <label for="sub-tab-advisors">Advisors</label>
 
-      <input id="sub-tab-honorary-directors" type="radio" name="sub-tabs">
-      <label for="sub-tab-honorary-directors">Honorary Directors</label>
+      <!-- <input id="sub-tab-honorary-directors" type="radio" name="sub-tabs">
+      <label for="sub-tab-honorary-directors">Honorary Directors</label> -->
 
       <div id="content-officers">
         <h2>OFFICERS</h2>
