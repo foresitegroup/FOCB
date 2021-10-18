@@ -1681,4 +1681,171 @@ function vamm_save($post_id) {
     delete_post_meta($post_id, 'vamm_section4');
   }
 }
+
+
+
+/*
+*  Videos
+*/
+add_action('init', 'videos');
+function videos() {
+  register_post_type('videos', array(
+    'labels' => array(
+      'name' => 'Videos',
+      'singular_name' => 'Video',
+      'add_new_item' => 'Add New Video',
+      'edit_item' => 'Edit Video',
+      'search_items' => 'Search Videos',
+      'not_found' => 'No Videos found'
+    ),
+    'show_ui' => true,
+    'menu_position' => 57,
+    'menu_icon' => 'dashicons-youtube',
+    'supports' => array('title','editor')
+  ));
+}
+
+add_filter('wp_insert_post_data', 'videos_custom_permalink');
+function videos_custom_permalink($data) {
+  if ($data['post_type'] == 'videos') {
+    $data['post_name'] = sanitize_title($data['post_title']);
+  }
+  return $data;
+}
+
+add_action('edit_form_after_editor', 'videos_after_editor');
+function videos_after_editor($post) {
+  if (get_post_type() == 'videos') {
+    ?>
+    <input type="text" name="videos_url" placeholder="YouTube URL" value="<?php if ($post->videos_url) echo $post->videos_url; ?>" id="videos_url">
+
+    <style>
+      #videos_url { width: 100%; margin-top: 2em; }
+    </style>
+    <?php
+  }
+}
+
+add_action('add_meta_boxes', 'videos_mb');
+function videos_mb() {
+  add_meta_box('videos_mb_fp', 'Featured Video', 'videos_mb_featured', 'videos', 'side', 'high');
+}
+
+function videos_mb_featured($post) {
+  ?>
+  <label><input type="checkbox" name="video_featured" value="yes"<?php if ($post->video_featured != "") echo " checked"; ?>> Make this the featured video</label>
+  <?php
+}
+
+add_action('save_post', 'videos_save');
+function videos_save($post_id) {
+  if (get_post_type() != 'videos') return;
+  
+  if (!empty($_POST['videos_url'])) {
+    update_post_meta($post_id, 'videos_url', $_POST['videos_url']);
+  } else {
+    delete_post_meta($post_id, 'videos_url');
+  }
+
+  if (!empty($_POST['video_featured'])) {
+    delete_post_meta_by_key('video_featured');
+    update_post_meta($post_id, 'video_featured', $_POST['video_featured']);
+  } else {
+    delete_post_meta($post_id, 'video_featured');
+  }
+}
+
+add_filter('manage_videos_posts_columns', 'set_custom_edit_videos_columns');
+function set_custom_edit_videos_columns($columns) {
+  unset($columns['date']);
+
+  $columns['post_excerpt'] = "Description";
+  $columns['videos_url'] = "YouTube URL";
+
+  return $columns;
+}
+
+add_action('manage_videos_posts_custom_column', 'custom_videos_column', 10, 2);
+function custom_videos_column($column, $post_id) {
+  switch ($column) {
+    case 'post_excerpt':
+      the_excerpt();
+      break;
+    case 'videos_url':
+      echo get_post_meta($post_id, 'videos_url', true);
+      break;
+  }
+}
+
+
+/*
+*  Make any Custom Post Type drag-to-sort in admin
+*  (Remember to unset column sorting for that CPT)
+*/
+$sortable_cpt = array('videos');
+
+add_filter('admin_body_class', 'cptsort_admin_class');
+function cptsort_admin_class($classes) {
+  global $typenow, $sortable_cpt;
+
+  if (in_array($typenow, $sortable_cpt)) {
+    $classes .= ' sortable';
+    return $classes;
+  }
+}
+
+add_action('admin_head', 'cptsort_admin_scripts');
+function cptsort_admin_scripts() {
+  global $typenow, $sortable_cpt;
+
+  if (in_array($typenow, $sortable_cpt)) {
+    wp_enqueue_script('jquery-ui-sortable');
+    ?>
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $('.sortable #the-list').sortable({
+          update: function(event, ui) {
+            $.post(ajaxurl, {action: 'cptsort_save', order: $('#the-list').sortable('serialize')});
+          }
+        });
+        
+        // Maintain proper row width when moving
+        var td_array = new Array();
+        $('#the-list tr:first-child').find('td').each(function(i) { td_array[i] = $(this).outerWidth(); });
+        $('#the-list').find('tr').each(function() {
+          $(this).find('td').each(function(j) { $(this).width(td_array[j]); });
+        });
+      });
+    </script>
+    <style>
+      .sortable #the-list TR:hover { cursor: move; }
+      .sortable #the-list TR:active { background: #FFEECC; }
+    </style>
+    <?php
+  }
+}
+
+add_action('wp_ajax_cptsort_save', 'cptsort_save');
+function cptsort_save() {
+  global $wpdb;
+  
+  parse_str($_POST['order'], $data);
+
+  $counter = 1;
+
+  foreach ($data['post'] as $item_id) {
+    $wpdb->update($wpdb->posts, array('menu_order' => $counter), array('ID' => $item_id));
+    $counter++;
+  }
+}
+
+add_action('pre_get_posts','cptsort_default_order', 9);
+function cptsort_default_order($query) {
+  global $sortable_cpt;
+
+  if (in_array($query->get('post_type'), $sortable_cpt)) {
+    if ($query->get('orderby') == '') $query->set('orderby','menu_order');
+    if ($query->get('order') == '') $query->set('order','ASC');
+  }
+}
 ?>

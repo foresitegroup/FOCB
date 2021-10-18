@@ -2336,6 +2336,62 @@ A.vamm-rm :hover,
 
 #vamm .report-content .text P:last-of-type { margin: 0; }
 
+/* Videos */
+#videos {
+  background: #37413F url(images/camo-fade.jpg) no-repeat center top;
+  color: #FFFFFF;
+  padding: 1px 0 100px;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+}
+
+#videos .featured { padding-top: 2em; }
+
+#videos .featured H3 { margin-top: 0.5em; }
+
+#videos HR {
+  margin: 2.5em 0 0;
+  outline: 0;
+  border: 0;
+  height: 5px;
+  background: #F7B747;
+}
+
+#videos .video { display: flex; justify-content: space-between; padding-top: 3em; }
+
+#videos .video .vid { width: 33%; }
+
+#videos .video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+#videos .video-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#videos .video .text { width: 62%; }
+
+#videos H3 {
+  margin: 0 0 0.25em;
+  color: #F7B747;
+  font-family: 'Medula One', serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+#videos .video .text P:last-of-type { margin-bottom: 0; }
+
 
 @media only screen and (min-width: 1920px) {
   BODY.home { background-size: contain; }
@@ -2592,6 +2648,10 @@ A.vamm-rm :hover,
   #cal-grid TR TD:last-of-type SPAN .popup:after { left: 85%; }
 
   #cal-grid-footer > DIV SPAN { width: 3.5vw; height: 3.5vw; }
+
+  #videos .video { flex-direction: column-reverse; }
+  #videos .video .vid, #videos .video .text { width: 100%; }
+  #videos .video .text P:last-of-type { margin-bottom: 1.5em; }
 }
 
 @media only screen and (max-width: 700px) {
