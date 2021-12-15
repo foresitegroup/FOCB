@@ -6,7 +6,7 @@
 
 <div id="notice">
   <div class="site-width">
-    We humans have little to no immunity to threats never before encountered by our ancestors. Hence, the seriousness of the Covid-19 virus and the need to take protective actions! The Friends of the Cedarburg Bog will be monitoring this threat based on reliable information from the State of Wisconsin, local health departments, and the Centers for Disease Control. At the present time, the Friends have suspended all events and meetings and the UWM Field Station is currently closed. Down the road, we hope to hold some or even all of our upcoming Spring and early Summer events; however, this will depend on up to the minute information provided by credible public health professionals. Thank you for your understanding and stay safe!
+    The Friends of the Cedarburg Bog continue to monitor the Covid-19 threat based on reliable information from the State of Wisconsin, local health departments, and the Centers for Disease Control.  At the present time, the Friends are holding in person events with limited capacity.  Masks are required inside the UWM Field Station regardless of vaccination status. Thank you for your understanding and stay safe!
   </div>
 </div>
 
