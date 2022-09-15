@@ -137,7 +137,41 @@ include_once "inc/fintoozler.php";
 
 <div id="contact-map">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23197.30872105301!2d-88.02742898754849!3d43.38405771736508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8804ee0383622e35%3A0x123177376c94f269!2sCedarburg+Bog+State+Natural+Area!5e0!3m2!1sen!2sus!4v1563895273448!5m2!1sen!2sus" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-  <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d23196.54489823878!2d-88.0133527550024!3d43.38605380642046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1564584281610!5m2!1sen!2sus" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
 </div>
+
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdl-F9GCaf48hAJ4C2QNPNolgeBlGPM1s&callback=initMap"></script>
+<script>
+  // function initMap() {
+  //   const map = new google.maps.Map(document.getElementById("contact-map"), {
+  //     zoom: 13,
+  //     center: { lat: 43.389541, lng: -88.009205 },
+  //   });
+
+  //   const parking = [
+  //     ["North Parking (STH 33)", 43.407376, -87.998063, "Parking at the north end is at a lot on the south side of STH 33. A handicapped accessible trail leads to a barrier-free pier on Watts Lake. Another short trail leads to the edge of a wooded swamp, beyond which there are no trails and further access is difficult."],
+  //     ["West Parking (Knollwood Road)", 43.396596, -88.015267, "Parking along Knollwood Road is on the south side of the road."],
+  //     ["South Parking (Cedar-Sauk Road)", 43.367505, -88.024976, "Parking at the south end is a pull-off on the north side of Cedar-Sauk Road. An unimproved boggy trail leads to Mud Lake which is suitable for canoe or kayak. The interior of the Bog is not easily accessible from Mud Lake."],
+  //   ];
+
+  //   const infoWindow = new google.maps.InfoWindow();
+
+  //   for (let i = 0; i < parking.length; i++) {
+  //     const marker = new google.maps.Marker({
+  //       position: { lat: parking[i][1], lng: parking[i][2] },
+  //       map,
+  //       icon: "<?php echo get_template_directory_uri(); ?>/images/parking.png",
+  //       title: parking[i][0],
+  //     });
+
+  //     marker.addListener("click", () => {
+  //       infoWindow.close();
+  //       infoWindow.setContent("<h2>"+marker.getTitle()+"</h2>"+parking[i][3]+'<br><br><a href="https://www.google.com/maps?saddr=My+Location&daddr='+parking[i][1]+','+parking[i][2]+'&amp;z=13" target="_blank" style="color: #048EDF; text-decoration: none; font-weight: bold;">GET DIRECTIONS</a><br><br>');
+  //       infoWindow.open(marker.getMap(), marker);
+  //     });
+  //   }
+  // }
+
+  // window.initMap = initMap;
+</script>
 
 <?php get_footer(); ?>
