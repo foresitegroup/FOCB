@@ -8,7 +8,7 @@ get_header();
   <?php
   echo get_bloginfo('name');
   the_title('<h1>', '</h1>');
-  echo "<h2>".get_the_date('F Y')."</h2>\n";
+  // echo "<h2>".get_the_date('F Y')."</h2>\n";
   ?>
 </div>
 
