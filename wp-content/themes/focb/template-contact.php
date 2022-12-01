@@ -12,7 +12,7 @@ include_once "inc/fintoozler.php";
 
 <div id="contact">
   <div class="site-width">
-    Send the friends a message by completing the form below. You may also call <a href="tel:262-675-6844">262-675-6844</a>. Our mailing address is:<br>
+    Send the friends a message by completing the form below. You may also call <a href="tel:414-847-1739">414-847-1739</a>. Our mailing address is:<br>
     &nbsp; &nbsp; Friends of the Cedarburg Bog, Inc.<br>
     &nbsp; &nbsp; C/O UW-Milwaukee Field Station<br>
     &nbsp; &nbsp; 3095 Blue Goose Road<br>

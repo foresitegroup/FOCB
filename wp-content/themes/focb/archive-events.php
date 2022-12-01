@@ -6,7 +6,7 @@
 
 <div id="notice">
   <div class="site-width">
-    The Friends of the Cedarburg Bog continue to monitor the Covid-19 threat based on reliable information from the State of Wisconsin, local health departments, and the Centers for Disease Control.  At the present time, the Friends are holding in person events with limited capacity.  Masks are required inside the UWM Field Station regardless of vaccination status. Thank you for your understanding and stay safe!
+    The Friends of the Cedarburg Bog continue to monitor the Covid-19 threat based on reliable information from the State of Wisconsin, local health departments, and the Centers for Disease Control.
   </div>
 </div>
 
